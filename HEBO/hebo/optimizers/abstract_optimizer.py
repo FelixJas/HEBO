@@ -12,6 +12,8 @@ from abc import ABC, abstractmethod
 from typing import Optional
 
 from hebo.design_space.design_space import DesignSpace
+from pathlib import Path
+import os
 
 
 class AbstractOptimizer(ABC):
@@ -32,6 +34,8 @@ class AbstractOptimizer(ABC):
         self.space = space
 
         # Ensure csv_save_path ends with .csv
+        if isinstance(csv_save_path, Path):
+            csv_save_path = str(csv_save_path)
         if isinstance(csv_save_path, str):
             if not csv_save_path.endswith(".csv"):
                 csv_save_path += ".csv"
@@ -58,7 +62,13 @@ class AbstractOptimizer(ABC):
         # Save results
         if isinstance(self.csv_save_path, str):
             results = x.copy()
-            results["y"] = y.copy()
+            target_colname = "y"
+            while target_colname in results.columns:
+                target_colname += "_obj"
+            results[target_colname] = y.copy()
+            if os.path.exists(self.csv_save_path):
+                saved_results = pd.read_csv(self.csv_save_path, index_col=0)
+                results = pd.concat([results, saved_results], axis=0, ignore_index=True)
             results.to_csv(self.csv_save_path)
 
         # Observe new data

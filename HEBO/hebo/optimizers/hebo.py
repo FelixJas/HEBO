@@ -42,16 +42,18 @@ class HEBO(AbstractOptimizer):
             es="nsga2",
             model_config=None,
             scramble_seed: Optional[int] = None,
+            csv_save_path: Optional[str] = None,
     ):
         """
         model_name  : surrogate model to be used
         rand_sample : iterations to perform random sampling
         scramble_seed : seed used for the sobol sampling of the first initial points
         input_constraints: list of constraints on the search space inputs (input is valid if all the constraint outputs
-                           are lower or equal to 0). Constraints can be given as string (e.g. "n_layer - width"),
+                           are lower or equal to 0). A constraint can be given as string (e.g. "n_layer - width"),
                            or as functions taking dictionary as input (e.g. lambda x: x["n_layer"] - x["width"])
+        csv_save_path (Optional[str]): Path to a CSV file where results are saved upon each call to observe. Defaults to None, in which case no results are saved.
         """
-        super().__init__(space)
+        super().__init__(space=space, csv_save_path=csv_save_path)
         self.space = space
         self.es = es
         self.X = pd.DataFrame(columns=self.space.para_names)
