@@ -28,7 +28,7 @@ jobs:
 
       - name: Build site
         run: |
-          cd mkdocs
+          cd ./Agent_K/agentdocs/  
           mkdocs build
 
       - name: Deploy to GitHub Pages
