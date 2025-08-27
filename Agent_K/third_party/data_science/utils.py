@@ -132,7 +132,7 @@ def download_leaderboard(
     user_details: str = "./third_party/data_preprocessing/kaggle_login_details.json"
     kaggle_login = json.load(open(user_details))
     kaggle_login_mail = kaggle_login.get("email", None)
-    kaggle_login_pwd = kaggle_login.get("password", None)
+    kaggle_login_pwd = kaggle_login.get("pwd", None)
     if kaggle_login_mail is None:
         kaggle_login_mail = kaggle_login.get("login_email", None)
     if kaggle_login_pwd is None:
