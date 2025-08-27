@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <link rel="shortcut icon" href="../img/favicon.ico" />
+    <title>Running ReAct baselines - Agent K Documentation</title>
+    <link rel="stylesheet" href="../css/theme.css" />
+    <link rel="stylesheet" href="../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+        <link href="../css/custom.css" rel="stylesheet" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "Running ReAct baselines";
+        var mkdocs_page_input_path = "reactresults.md";
+        var mkdocs_page_url = null;
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href=".." class="icon icon-home"> Agent K Documentation
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption"><span class="caption-text">Setup</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="..">Installation</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../llm/">Setting the LLM</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../test_setup/">Test the Setup</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Running Agent K</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../custom_task/">Running Custom Tasks</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../add_competition/">Adding Kaggle Competition</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../NLP/">Running CV/NLP/Multimodal Tasks</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../Tabular/">Running Tabular Tasks</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Running ReAct Agent</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../reactagent/">ReAct Agent</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../rag/">RAG Database creation</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Submitting to Kaggle</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../Submission/">Submission</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Extras</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../visualize/">Visualization</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Reproducing Results</span></p>
+              <ul class="current">
+                  <li class="toctree-l1"><a class="reference internal" href="../agentkresults/">Running Agent K</a>
+                  </li>
+                  <li class="toctree-l1 current"><a class="reference internal current" href="#">Running ReAct baselines</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#react-agent-no-rag">🤖 ReAct Agent (No RAG)</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#react-agent-rag">📚 ReAct Agent + RAG</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#react-agent-from-cot">💡 ReAct Agent from COT</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#react-agent-deepseek">⚡ ReAct Agent (DeepSeek)</a>
+    </li>
+    </ul>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tabpfn/">TabPFN Baseline</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../benchmark/">Benchmark set</a>
+                  </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="..">Agent K Documentation</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href=".." class="icon icon-home" aria-label="Docs"></a></li>
+          <li class="breadcrumb-item">Reproducing Results</li>
+      <li class="breadcrumb-item active">Running ReAct baselines</li>
+    <li class="wy-breadcrumbs-aside">
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="react-agent-runs">🦾 ReAct Agent Runs<a class="headerlink" href="#react-agent-runs" title="Permanent link">&para;</a></h1>
+<h3 id="react-agent-no-rag">🤖 ReAct Agent (No RAG)<a class="headerlink" href="#react-agent-no-rag" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="nv">TASK_ID</span><span class="o">=</span>...<span class="w"> </span>
+<span class="nv">TOP_N</span><span class="o">=</span>...<span class="w"> </span>
+<span class="nv">MIN_EXEC_TIME_SECONDS</span><span class="o">=</span>...<span class="w"> </span>
+<span class="nv">TIME_LIMIT_SECONDS</span><span class="o">=</span><span class="m">172800</span><span class="w"> </span><span class="o">(</span>Tabular<span class="o">)</span>,<span class="w"> </span><span class="m">345600</span><span class="w"> </span><span class="o">(</span>CV/NLP<span class="o">)</span>
+<span class="nv">TIME_OUT_SECONDS</span><span class="o">=</span><span class="m">32400</span><span class="w"> </span><span class="o">(</span>Tabular<span class="o">)</span>,<span class="w"> </span><span class="m">64800</span><span class="w"> </span><span class="o">(</span>CV/NLP<span class="o">)</span>
+<span class="nv">WORKSPACE_DIR</span><span class="o">=</span>...<span class="w"> </span>
+<span class="nv">MODEL_ID</span><span class="o">=</span>Qwen/Qwen2.5-72B-Instruct<span class="w"> </span>
+<span class="nv">DATA_DIR</span><span class="o">=</span>...<span class="w"> </span>
+<span class="nv">TOKENIZERS_PARALLELISM</span><span class="o">=</span>False<span class="w"> </span>aide<span class="w"> </span><span class="se">\</span>
+<span class="w">      </span><span class="nv">data_dir</span><span class="o">=</span><span class="si">${</span><span class="nv">DATA_DIR</span><span class="si">}</span>/<span class="si">${</span><span class="nv">TASK_ID</span><span class="si">}</span><span class="w"> </span><span class="se">\</span>
+<span class="w">      </span><span class="nv">exp_name</span><span class="o">=</span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">TASK_ID</span><span class="si">}</span><span class="s2">&quot;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">      </span><span class="nv">top_n</span><span class="o">=</span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">TOP_N</span><span class="si">}</span><span class="s2">&quot;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">      </span>agent.time_limit<span class="o">=</span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">TIME_LIMIT_SECONDS</span><span class="si">}</span><span class="s2">&quot;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">      </span>agent.min_exec_time<span class="o">=</span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">MIN_EXEC_TIME_SECONDS</span><span class="si">}</span><span class="s2">&quot;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">      </span>exec.timeout<span class="o">=</span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">TIME_OUT_SECONDS</span><span class="si">}</span><span class="s2">&quot;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">      </span><span class="nv">copy_data</span><span class="o">=</span><span class="nb">false</span><span class="w"> </span><span class="se">\</span>
+<span class="w">      </span><span class="nv">workspace_dir</span><span class="o">=</span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">WORKSPACE_DIR</span><span class="si">}</span><span class="s2">&quot;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">      </span>agent.code.model<span class="o">=</span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">MODEL_ID</span><span class="si">}</span><span class="s2">&quot;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">      </span>agent.feedback.model<span class="o">=</span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">MODEL_ID</span><span class="si">}</span><span class="s2">&quot;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">      </span>agent.use_rag<span class="o">=</span>False
+</code></pre></div>
+<h3 id="react-agent-rag">📚 ReAct Agent + RAG<a class="headerlink" href="#react-agent-rag" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="nv">TASK_ID</span><span class="o">=</span>...<span class="w"> </span>
+<span class="nv">TOP_N</span><span class="o">=</span>...<span class="w"> </span>
+<span class="nv">MIN_EXEC_TIME_SECONDS</span><span class="o">=</span>...<span class="w"> </span>
+<span class="nv">TIME_LIMIT_SECONDS</span><span class="o">=</span><span class="m">172800</span><span class="w"> </span><span class="o">(</span>Tabular<span class="o">)</span>,<span class="w"> </span><span class="m">345600</span><span class="w"> </span><span class="o">(</span>CV/NLP<span class="o">)</span>
+<span class="nv">TIME_OUT_SECONDS</span><span class="o">=</span><span class="m">32400</span><span class="w"> </span><span class="o">(</span>Tabular<span class="o">)</span>,<span class="w"> </span><span class="m">64800</span><span class="w"> </span><span class="o">(</span>CV/NLP<span class="o">)</span>
+<span class="nv">WORKSPACE_DIR</span><span class="o">=</span>...<span class="w"> </span>
+<span class="nv">MODEL_ID</span><span class="o">=</span>Qwen/Qwen2.5-72B-Instruct<span class="w">  </span>
+<span class="nv">DATA_DIR</span><span class="o">=</span>...<span class="w"> </span>
+<span class="nv">TOKENIZERS_PARALLELISM</span><span class="o">=</span>False<span class="w"> </span>aide<span class="w"> </span><span class="se">\</span>
+<span class="w">      </span><span class="nv">data_dir</span><span class="o">=</span><span class="si">${</span><span class="nv">DATA_DIR</span><span class="si">}</span>/<span class="si">${</span><span class="nv">TASK_ID</span><span class="si">}</span><span class="w"> </span><span class="se">\</span>
+<span class="w">      </span><span class="nv">exp_name</span><span class="o">=</span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">TASK_ID</span><span class="si">}</span><span class="s2">&quot;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">      </span><span class="nv">top_n</span><span class="o">=</span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">TOP_N</span><span class="si">}</span><span class="s2">&quot;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">      </span>agent.time_limit<span class="o">=</span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">TIME_LIMIT_SECONDS</span><span class="si">}</span><span class="s2">&quot;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">      </span>agent.min_exec_time<span class="o">=</span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">MIN_EXEC_TIME_SECONDS</span><span class="si">}</span><span class="s2">&quot;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">      </span>exec.timeout<span class="o">=</span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">TIME_OUT_SECONDS</span><span class="si">}</span><span class="s2">&quot;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">      </span><span class="nv">copy_data</span><span class="o">=</span><span class="nb">false</span><span class="w"> </span><span class="se">\</span>
+<span class="w">      </span><span class="nv">workspace_dir</span><span class="o">=</span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">WORKSPACE_DIR</span><span class="si">}</span><span class="s2">&quot;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">      </span>agent.code.model<span class="o">=</span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">MODEL_ID</span><span class="si">}</span><span class="s2">&quot;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">      </span>agent.feedback.model<span class="o">=</span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">MODEL_ID</span><span class="si">}</span><span class="s2">&quot;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">      </span>agent.use_rag<span class="o">=</span>True
+</code></pre></div>
+<h3 id="react-agent-from-cot">💡 ReAct Agent from COT<a class="headerlink" href="#react-agent-from-cot" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="nv">TASK_ID</span><span class="o">=</span>...<span class="w"> </span>
+<span class="nv">TOP_N</span><span class="o">=</span>...<span class="w"> </span>
+<span class="nv">MIN_EXEC_TIME_SECONDS</span><span class="o">=</span>...<span class="w"> </span>
+<span class="nv">TIME_LIMIT_SECONDS</span><span class="o">=</span><span class="m">172800</span><span class="w"> </span><span class="o">(</span>Tabular<span class="o">)</span>,<span class="w"> </span><span class="m">345600</span><span class="w"> </span><span class="o">(</span>CV/NLP<span class="o">)</span>
+<span class="nv">TIME_OUT_SECONDS</span><span class="o">=</span><span class="m">32400</span><span class="w"> </span><span class="o">(</span>Tabular<span class="o">)</span>,<span class="w"> </span><span class="m">64800</span><span class="w"> </span><span class="o">(</span>CV/NLP<span class="o">)</span>
+<span class="nv">WORKSPACE_DIR</span><span class="o">=</span>...<span class="w"> </span>
+<span class="nv">MODEL_ID</span><span class="o">=</span>Qwen/Qwen2.5-72B-Instruct<span class="w"> </span>
+<span class="nv">DATA_DIR</span><span class="o">=</span>...<span class="w"> </span>
+<span class="nv">$USE_AGENT_K_WARM_START</span><span class="o">=</span>...
+<span class="nv">$AGENT_K_SUBMISSIONS</span><span class="o">=</span>...
+<span class="nv">TOKENIZERS_PARALLELISM</span><span class="o">=</span>False<span class="w"> </span>aide<span class="w"> </span><span class="se">\</span>
+<span class="w">      </span><span class="nv">data_dir</span><span class="o">=</span><span class="si">${</span><span class="nv">DATA_DIR</span><span class="si">}</span>/<span class="si">${</span><span class="nv">TASK_ID</span><span class="si">}</span><span class="w"> </span><span class="se">\</span>
+<span class="w">      </span><span class="nv">exp_name</span><span class="o">=</span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">TASK_ID</span><span class="si">}</span><span class="s2">&quot;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">      </span><span class="nv">top_n</span><span class="o">=</span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">TOP_N</span><span class="si">}</span><span class="s2">&quot;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">      </span>agent.time_limit<span class="o">=</span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">TIME_LIMIT_SECONDS</span><span class="si">}</span><span class="s2">&quot;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">      </span>agent.min_exec_time<span class="o">=</span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">MIN_EXEC_TIME_SECONDS</span><span class="si">}</span><span class="s2">&quot;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">      </span>exec.timeout<span class="o">=</span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">TIME_OUT_SECONDS</span><span class="si">}</span><span class="s2">&quot;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">      </span><span class="nv">copy_data</span><span class="o">=</span><span class="nb">false</span><span class="w"> </span><span class="se">\</span>
+<span class="w">      </span><span class="nv">workspace_dir</span><span class="o">=</span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">WORKSPACE_DIR</span><span class="si">}</span><span class="s2">&quot;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">      </span>agent.code.model<span class="o">=</span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">MODEL_ID</span><span class="si">}</span><span class="s2">&quot;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">      </span>agent.feedback.model<span class="o">=</span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">MODEL_ID</span><span class="si">}</span><span class="s2">&quot;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">      </span>agent.use_agent_k_warm_start<span class="o">=</span><span class="nv">$USE_AGENT_K_WARM_START</span><span class="w"> </span><span class="se">\</span>
+<span class="w">      </span>agent.agent_k_submissions<span class="o">=</span><span class="nv">$AGENT_K_SUBMISSIONS</span><span class="w"> </span><span class="se">\</span>
+<span class="w">      </span>agent.use_rag<span class="o">=</span>False
+</code></pre></div>
+<h3 id="react-agent-deepseek">⚡ ReAct Agent (DeepSeek)<a class="headerlink" href="#react-agent-deepseek" title="Permanent link">&para;</a></h3>
+<p>From your <code>Project Root</code> and inside the <code>reactagent</code> environment
+<div class="highlight"><pre><span></span><code><span class="nv">TASK_ID</span><span class="o">=</span>...<span class="w"> </span>
+<span class="nv">TOP_N</span><span class="o">=</span>...<span class="w"> </span>
+<span class="nv">MIN_EXEC_TIME_SECONDS</span><span class="o">=</span>...<span class="w"> </span>
+<span class="nv">TIME_LIMIT_SECONDS</span><span class="o">=</span><span class="m">172800</span><span class="w"> </span><span class="o">(</span>Tabular<span class="o">)</span>,<span class="w"> </span><span class="m">345600</span><span class="w"> </span><span class="o">(</span>CV/NLP<span class="o">)</span>
+<span class="nv">TIME_OUT_SECONDS</span><span class="o">=</span><span class="m">32400</span><span class="w"> </span><span class="o">(</span>Tabular<span class="o">)</span>,<span class="w"> </span><span class="m">64800</span><span class="w"> </span><span class="o">(</span>CV/NLP<span class="o">)</span>
+<span class="nv">WORKSPACE_DIR</span><span class="o">=</span>...<span class="w"> </span>
+<span class="nv">MODEL_ID</span><span class="o">=</span>deepseek-reasoner<span class="w"> </span>
+<span class="nv">DATA_DIR</span><span class="o">=</span>...<span class="w"> </span>
+<span class="nv">DEEPSEEK_API_KEY</span><span class="o">=</span>&lt;your-api-key&gt;<span class="w"> </span><span class="nv">TOKENIZERS_PARALLELISM</span><span class="o">=</span>False<span class="w"> </span>aide<span class="w"> </span><span class="se">\</span>
+<span class="w">      </span><span class="nv">data_dir</span><span class="o">=</span><span class="si">${</span><span class="nv">DATA_DIR</span><span class="si">}</span>/<span class="si">${</span><span class="nv">TASK_ID</span><span class="si">}</span><span class="w"> </span><span class="se">\</span>
+<span class="w">      </span><span class="nv">exp_name</span><span class="o">=</span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">TASK_ID</span><span class="si">}</span><span class="s2">&quot;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">      </span><span class="nv">top_n</span><span class="o">=</span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">TOP_N</span><span class="si">}</span><span class="s2">&quot;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">      </span>agent.time_limit<span class="o">=</span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">TIME_LIMIT_SECONDS</span><span class="si">}</span><span class="s2">&quot;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">      </span>agent.min_exec_time<span class="o">=</span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">MIN_EXEC_TIME_SECONDS</span><span class="si">}</span><span class="s2">&quot;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">      </span>exec.timeout<span class="o">=</span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">TIME_OUT_SECONDS</span><span class="si">}</span><span class="s2">&quot;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">      </span><span class="nv">copy_data</span><span class="o">=</span><span class="nb">false</span><span class="w"> </span><span class="se">\</span>
+<span class="w">      </span><span class="nv">workspace_dir</span><span class="o">=</span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">WORKSPACE_DIR</span><span class="si">}</span><span class="s2">&quot;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">      </span>agent.code.model<span class="o">=</span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">MODEL_ID</span><span class="si">}</span><span class="s2">&quot;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">      </span>agent.feedback.model<span class="o">=</span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">MODEL_ID</span><span class="si">}</span><span class="s2">&quot;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">      </span>agent.use_rag<span class="o">=</span>False
+</code></pre></div></p>
+<p>For descriptions of each of the variables and arguments and additional information refer to <a href="../reactagent/">running ReAct</a>.</p>
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="../agentkresults/" class="btn btn-neutral float-left" title="Running Agent K"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../tabpfn/" class="btn btn-neutral float-right" title="TabPFN Baseline">Next <span class="icon icon-circle-arrow-right"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+    
+      <span><a href="../agentkresults/" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="../tabpfn/" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script src="../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "..";</script>
+    <script src="../js/theme_extra.js"></script>
+    <script src="../js/theme.js"></script>
+      <script src="../search/main.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>

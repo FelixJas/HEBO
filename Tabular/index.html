@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <link rel="shortcut icon" href="../img/favicon.ico" />
+    <title>Running Tabular Tasks - Agent K Documentation</title>
+    <link rel="stylesheet" href="../css/theme.css" />
+    <link rel="stylesheet" href="../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+        <link href="../css/custom.css" rel="stylesheet" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "Running Tabular Tasks";
+        var mkdocs_page_input_path = "Tabular.md";
+        var mkdocs_page_url = null;
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href=".." class="icon icon-home"> Agent K Documentation
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption"><span class="caption-text">Setup</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="..">Installation</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../llm/">Setting the LLM</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../test_setup/">Test the Setup</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Running Agent K</span></p>
+              <ul class="current">
+                  <li class="toctree-l1"><a class="reference internal" href="../custom_task/">Running Custom Tasks</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../add_competition/">Adding Kaggle Competition</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../NLP/">Running CV/NLP/Multimodal Tasks</a>
+                  </li>
+                  <li class="toctree-l1 current"><a class="reference internal current" href="#">Running Tabular Tasks</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#prerequisites">🛠️ Prerequisites</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#execution-modes">🧩 Execution Modes</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#running-the-full-pipeline">Running the full pipeline</a>
+        <ul>
+    <li class="toctree-l4"><a class="reference internal" href="#required-environment-variables-and-arguments-for-tabular-tasks">✅ Required Environment Variables and arguments for Tabular Tasks</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#running-setup-pipeline-and-main-pipeline-separately">Running setup pipeline and main pipeline separately.</a>
+    </li>
+        </ul>
+    </li>
+    </ul>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Running ReAct Agent</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../reactagent/">ReAct Agent</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../rag/">RAG Database creation</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Submitting to Kaggle</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../Submission/">Submission</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Extras</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../visualize/">Visualization</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Reproducing Results</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../agentkresults/">Running Agent K</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../reactresults/">Running ReAct baselines</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tabpfn/">TabPFN Baseline</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../benchmark/">Benchmark set</a>
+                  </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="..">Agent K Documentation</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href=".." class="icon icon-home" aria-label="Docs"></a></li>
+          <li class="breadcrumb-item">Running Agent K</li>
+      <li class="breadcrumb-item active">Running Tabular Tasks</li>
+    <li class="wy-breadcrumbs-aside">
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="running-tabular-competition-with-agent-k">📊 Running Tabular Competition with Agent K<a class="headerlink" href="#running-tabular-competition-with-agent-k" title="Permanent link">&para;</a></h1>
+<p>This guide outlines the steps required to run a Kaggle tabular competition using Agent K.  </p>
+<blockquote>
+<p><strong>Note:</strong> This documentation is specific to Kaggle competitions. For instructions on running custom tasks, refer to the <a href="../custom_task/">Running Custom Task</a> guide.</p>
+</blockquote>
+<hr />
+<h2 id="prerequisites">🛠️ Prerequisites<a class="headerlink" href="#prerequisites" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Ensure the agent is properly set up. Refer to the <a href="../">Installation Guide</a> for details.</li>
+</ul>
+<hr />
+<h2 id="execution-modes">🧩 Execution Modes<a class="headerlink" href="#execution-modes" title="Permanent link">&para;</a></h2>
+<p>Agent K supports two modes for running tabular tasks:</p>
+<ol>
+<li>
+<p><strong>Full Pipeline Execution</strong><br />
+   Runs both the setup and main pipeline in a single step, automatically generating the final solution.</p>
+</li>
+<li>
+<p><strong>Separate Execution</strong><br />
+   Allows you to run the setup and main pipeline independently, offering more control over intermediate steps.</p>
+</li>
+</ol>
+<h3 id="running-the-full-pipeline">Running the full pipeline<a class="headerlink" href="#running-the-full-pipeline" title="Permanent link">&para;</a></h3>
+<p>To run the full pipeline use the following command while in your <code>root</code> directory.</p>
+<div class="highlight"><pre><span></span><code><span class="nv">ALT_RAW_DATA_ROOT</span><span class="o">=</span>...<span class="w"> </span>
+<span class="nv">CPU_RANGE</span><span class="o">=</span>...<span class="w">  </span>
+<span class="nv">TASK_ID</span><span class="o">=</span>...<span class="w"> </span>
+<span class="nv">MODEL_ID</span><span class="o">=</span>...<span class="w"> </span>
+<span class="nv">TIME_LIMIT_SECONDS</span><span class="o">=</span>...<span class="w"> </span>
+<span class="nv">ATTEMPT</span><span class="o">=</span>...<span class="w"> </span>
+<span class="nv">WORKSPACE_NAME</span><span class="o">=</span>...<span class="w"> </span>
+taskset<span class="w"> </span>-c<span class="w"> </span><span class="nv">$CPU_RANGE</span><span class="w"> </span>python<span class="w"> </span>run_complete_pipeline.py<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--task_id<span class="w"> </span><span class="nv">$TASK_ID</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--prep_task<span class="w"> </span>data_preprocessing<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--prep_method<span class="w"> </span>data-prep-flow<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--ds_method<span class="w"> </span>agent-k-solve<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--llm<span class="w"> </span><span class="nv">$MODEL_ID</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--code-llm<span class="w"> </span><span class="nv">$MODEL_ID</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--total_time<span class="w"> </span><span class="nv">$TIME_LIMIT_SECONDS</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--tabular-task<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--attempt<span class="w"> </span><span class="nv">$ATTEMPT</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--max_cpu<span class="w"> </span><span class="m">8</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--workspace_name<span class="w"> </span><span class="nv">$WORKSPACE_NAME</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--alt_raw_data_root<span class="w"> </span><span class="nv">$ALT_RAW_DATA_ROOT</span>
+</code></pre></div>
+<h4 id="required-environment-variables-and-arguments-for-tabular-tasks">✅ Required Environment Variables and arguments for Tabular Tasks<a class="headerlink" href="#required-environment-variables-and-arguments-for-tabular-tasks" title="Permanent link">&para;</a></h4>
+<table>
+<thead>
+<tr>
+<th>Variable</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>ALT_RAW_DATA_ROOT</code></td>
+<td>Path where raw competition data is stored</td>
+</tr>
+<tr>
+<td><code>CPU_RANGE</code></td>
+<td>Range of CPU cores to use (e.g., <code>0-7</code>)</td>
+</tr>
+<tr>
+<td><code>TASK_ID</code></td>
+<td>Identifier for the competition task</td>
+</tr>
+<tr>
+<td><code>MODEL_ID</code></td>
+<td>LLM model identifier</td>
+</tr>
+<tr>
+<td><code>TIME_LIMIT_SECONDS</code></td>
+<td>Maximum time allowed for task execution (in sec)</td>
+</tr>
+<tr>
+<td><code>ATTEMPT</code></td>
+<td>Attempt number</td>
+</tr>
+<tr>
+<td><code>WORKSPACE_NAME</code></td>
+<td>Name of the workspace where you would like the solution to be created</td>
+</tr>
+</tbody>
+</table>
+<h3 id="running-setup-pipeline-and-main-pipeline-separately">Running setup pipeline and main pipeline separately.<a class="headerlink" href="#running-setup-pipeline-and-main-pipeline-separately" title="Permanent link">&para;</a></h3>
+<ul>
+<li>To run the setup pipeline use the command to run full pipeline but with a 
+<code>--run_setup_only</code> flag. This will create the workspace for the task and it is ready to run the full pipeline.</li>
+<li>After setup inside <code>.../competition_workspace/seed_*/</code> there will be a text document called <code>main_pipeline.txt</code> which will contain three commands required to run the main pipeline.</li>
+</ul>
+<h1 id="submissions">📤 Submissions<a class="headerlink" href="#submissions" title="Permanent link">&para;</a></h1>
+<h3 id="for-tabular-tasks">🗃️ For Tabular Tasks<a class="headerlink" href="#for-tabular-tasks" title="Permanent link">&para;</a></h3>
+<p>If your tabular tasks ran successfully, you’ll find the final submission files in:<br />
+<code>/path/to/your/workspace/{competition_name}/seed_*/ramp_kit_v{LLM_Name}/final_test_predictions/</code>. </p>
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="../NLP/" class="btn btn-neutral float-left" title="Running CV/NLP/Multimodal Tasks"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../reactagent/" class="btn btn-neutral float-right" title="ReAct Agent">Next <span class="icon icon-circle-arrow-right"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+    
+      <span><a href="../NLP/" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="../reactagent/" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script src="../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "..";</script>
+    <script src="../js/theme_extra.js"></script>
+    <script src="../js/theme.js"></script>
+      <script src="../search/main.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>

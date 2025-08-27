@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <link rel="shortcut icon" href="../img/favicon.ico" />
+    <title>Submission - Agent K Documentation</title>
+    <link rel="stylesheet" href="../css/theme.css" />
+    <link rel="stylesheet" href="../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+        <link href="../css/custom.css" rel="stylesheet" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "Submission";
+        var mkdocs_page_input_path = "Submission.md";
+        var mkdocs_page_url = null;
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href=".." class="icon icon-home"> Agent K Documentation
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption"><span class="caption-text">Setup</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="..">Installation</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../llm/">Setting the LLM</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../test_setup/">Test the Setup</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Running Agent K</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../custom_task/">Running Custom Tasks</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../add_competition/">Adding Kaggle Competition</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../NLP/">Running CV/NLP/Multimodal Tasks</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../Tabular/">Running Tabular Tasks</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Running ReAct Agent</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../reactagent/">ReAct Agent</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../rag/">RAG Database creation</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Submitting to Kaggle</span></p>
+              <ul class="current">
+                  <li class="toctree-l1 current"><a class="reference internal current" href="#">Submission</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#submitting-a-single-competition">🏆 Submitting a Single Competition</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#submitting-an-entire-workspace-multiple-competitions">📂 Submitting an Entire Workspace (Multiple Competitions)</a>
+    </li>
+    </ul>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Extras</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../visualize/">Visualization</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Reproducing Results</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../agentkresults/">Running Agent K</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../reactresults/">Running ReAct baselines</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tabpfn/">TabPFN Baseline</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../benchmark/">Benchmark set</a>
+                  </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="..">Agent K Documentation</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href=".." class="icon icon-home" aria-label="Docs"></a></li>
+          <li class="breadcrumb-item">Submitting to Kaggle</li>
+      <li class="breadcrumb-item active">Submission</li>
+    <li class="wy-breadcrumbs-aside">
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="submit-to-kaggle">🚀 Submit to Kaggle<a class="headerlink" href="#submit-to-kaggle" title="Permanent link">&para;</a></h1>
+<p>This guide will help you submit to Kaggle competitions using both Agent K 🧠 and ReAct Agent 🤖.
+Whether you’re working on a single competition or an entire workspace of projects, follow these steps to get your submissions up and running smoothly.</p>
+<h2 id="submitting-a-single-competition">🏆 Submitting a Single Competition<a class="headerlink" href="#submitting-a-single-competition" title="Permanent link">&para;</a></h2>
+<p>Step-by-step instructions for uploading your results to a specific Kaggle competition. Perfect when you’ve just finished running an experiment and want to get those leaderboard points! 📈
+from the <code>project root</code>.
+<div class="highlight"><pre><span></span><code><span class="nv">WORKSPACE_ROOT_AGENT</span><span class="o">=</span>...
+<span class="nv">WORKSPACE_ROOT_REACT</span><span class="o">=</span>...
+<span class="nv">TASK_ID</span><span class="o">=</span>...
+<span class="nv">MESSAGE</span><span class="o">=</span>...
+<span class="nv">LEADERBOARDS_DIR</span><span class="o">=</span>...
+python<span class="w"> </span>./third_party/data_science/kaggle_submissions/submit_kaggle.py<span class="w"> </span><span class="se">\</span>
+--workspace_root_agent<span class="o">=</span><span class="nv">$WORKSPACE_ROOT_AGENT</span><span class="w"> </span><span class="se">\</span>
+--workspace_root_aide<span class="o">=</span><span class="nv">$WORKSPACE_ROOT_REACT</span><span class="w"> </span><span class="se">\</span>
+--task_id<span class="o">=</span><span class="nv">$TASK_ID</span><span class="w"> </span><span class="se">\</span>
+--message<span class="o">=</span><span class="nv">$MESSAGE</span><span class="w"> </span><span class="se">\</span>
+--leaderboards_dir<span class="o">=</span><span class="nv">$LEADERBOARDS_DIR</span>
+</code></pre></div></p>
+<h2 id="submitting-an-entire-workspace-multiple-competitions">📂 Submitting an Entire Workspace (Multiple Competitions)<a class="headerlink" href="#submitting-an-entire-workspace-multiple-competitions" title="Permanent link">&para;</a></h2>
+<p>Step-by-step instructions to submit all competitions in your workspace in one go. 
+<div class="highlight"><pre><span></span><code><span class="nv">WORKSPACE_ROOT_AGENT</span><span class="o">=</span>...
+<span class="nv">WORKSPACE_ROOT_REACT</span><span class="o">=</span>...
+<span class="nv">MESSAGE</span><span class="o">=</span>...
+<span class="nv">LEADERBOARDS_DIR</span><span class="o">=</span>...
+python<span class="w"> </span>./third_party/data_science/kaggle_submissions/submit_kaggle.py<span class="w"> </span><span class="se">\</span>
+--workspace_root_agent<span class="o">=</span><span class="nv">$WORKSPACE_ROOT_AGENT</span><span class="w"> </span><span class="se">\</span>
+--workspace_root_aide<span class="o">=</span><span class="nv">$WORKSPACE_ROOT_REACT</span><span class="w"> </span><span class="se">\</span>
+--message<span class="o">=</span><span class="nv">$MESSAGE</span><span class="w"> </span><span class="se">\</span>
+--leaderboards_dir<span class="o">=</span><span class="nv">$LEADERBOARDS_DIR</span>
+</code></pre></div></p>
+<table>
+<thead>
+<tr>
+<th>Variable</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>WORKSPACE_ROOT_AGENT</code></td>
+<td>Path to the workspace containing Agent K runs.</td>
+</tr>
+<tr>
+<td><code>WORKSPACE_ROOT_REACT</code></td>
+<td>Path to the workspace containing ReAct Agent runs.</td>
+</tr>
+<tr>
+<td><code>TASK_ID</code></td>
+<td>The specific Kaggle competition name to submit.</td>
+</tr>
+<tr>
+<td><code>MESSAGE</code></td>
+<td>Message or description associated with the submission.</td>
+</tr>
+<tr>
+<td><code>LEADERBOARDS_DIR</code></td>
+<td>Path to the leaderboards directory.</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Notes</strong></p>
+<ol>
+<li>
+<p>To submit all tasks from a workspace, provide the path to either WORKSPACE_ROOT_AGENT, WORKSPACE_ROOT_AIDE, or both—depending on which agent(s) were used to run the tasks.</p>
+</li>
+<li>
+<p>To submit a specific task only, set the TASK_ID environment variable and omit the workspace paths. This will submit just that individual task.</p>
+</li>
+<li>
+<p>If you need to change permissions to create a new file in your folder, you can set <code>SUDO_PASSWORD</code> variable.</p>
+</li>
+</ol>
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="../rag/" class="btn btn-neutral float-left" title="RAG Database creation"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../visualize/" class="btn btn-neutral float-right" title="Visualization">Next <span class="icon icon-circle-arrow-right"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+    
+      <span><a href="../rag/" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="../visualize/" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script src="../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "..";</script>
+    <script src="../js/theme_extra.js"></script>
+    <script src="../js/theme.js"></script>
+      <script src="../search/main.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>
