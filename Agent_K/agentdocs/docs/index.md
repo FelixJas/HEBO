@@ -1,6 +1,6 @@
 # 🧠 Installing Agent K
 
-Clone the Agent K repository:
+Clone the [Agent K repository](https://github.com/huawei-noah/HEBO/tree/dev-agent/Agent_K):
 
 ```bash
 git clone --depth=1 --branch dev-agent https://github.com/huawei-noah/HEBO.git
