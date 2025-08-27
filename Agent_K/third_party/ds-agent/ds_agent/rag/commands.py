@@ -5,7 +5,7 @@ from agent.loggers import ManyLoggers, FileSystemLogger
 from agent.memory import MemKey
 
 from ds_agent.data_preprocessing.log_utils import load_log_as_df
-from ds_agent.rag.norelease_unit_test_correction import extract_unit_test_code_corrections
+from ds_agent.rag.unit_test_correction import extract_unit_test_code_corrections
 from ds_agent.rag.db_faiss import DB_FAISS
 
 
@@ -20,11 +20,11 @@ class StartRAGDB(Command):
     db_embedding_model_name: str = "thenlper/gte-small"
 
     disabled: bool = False
-    
+
     def func(self, agent):
         if self.disabled:
             return
-        
+
         DB_FAISS.start(
             db_path=self.db_path, model_name=self.db_embedding_model_name, embedded_field=self.db_embedded_field
         )

@@ -68,7 +68,7 @@ def run_ds_pipeline(
                 f"MAX_TIME_PER_SUBMISSION=3600 "
                 f"{python_path} src/agent/start.py "
                 f"task=data_science_interact "
-                f"llm@agent.llm=llm_playground/codestral-22b "  # LLM name doest matter as we read responses from file
+                f"llm@agent.llm=hf_hub/qwen2.5-72b "  # LLM name doest matter as we read responses from file
                 f"method=agent-k-solve "
                 f"hydra.run.dir={hydra_dir} "
                 f"max_episodes=1 "

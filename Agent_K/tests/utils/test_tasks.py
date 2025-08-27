@@ -420,7 +420,7 @@ def run_pipeline_for_task(task_id, task_class, task_type, raw_data_dir, run_setu
 
     prep_task = "data_preprocessing"
     prep_method = "data-prep-flow"
-    llm = "llm_playground/qwen2.5-72b"
+    llm = "hf_hub/qwen2.5-72b"
     ds_method = "agent-k-solve"
 
     working_dir = Path(raw_data_dir) / task_type
