@@ -176,7 +176,7 @@ def run_setup_pipeline(
         setup_dir.mkdir(parents=True, exist_ok=True)
 
         setup_command = (
-            f"HYDRA_FULL_ERROR=1 ALT_RAW_DATA_ROOT={alt_raw_data_root} python ./src/agent/start.py "
+            f"HYDRA_FULL_ERROR=1 python ./src/agent/start.py "
             f"--config-name think_and_code_llm_sa_eval "
             f"task={prep_task} method={prep_method} "
             f"max_episodes=1 "
@@ -188,6 +188,9 @@ def run_setup_pipeline(
             f"hydra.run.dir={setup_log_dir}/seed_{setup_version} "
             f"task.is_local_task={is_local_task} "
         )
+        if alt_raw_data_root:
+            setup_command = f"ALT_RAW_DATA_ROOT={alt_raw_data_root} " + setup_command
+
 
         if default_response_path:
             setup_command += f"+agent.read_answer_from_file_path={default_response_path} "
@@ -287,7 +290,6 @@ def run_ds_main_pipeline(
         f"ALLOW_DEFAULT_RESPONSE={allow_default_response} "
         f"AGENT_DEBUG={debug_mode} "
         f"TOKENIZERS_PARALLELISM=0 "
-        f"ALT_RAW_DATA_ROOT={alt_raw_data_root} "
         f"BLEND_AFTER_N={blend_after_n} "
         f"TTA=1 "
         f"MAX_TIME_PER_SUBMISSION={max_time_per_submission} "
@@ -306,6 +308,8 @@ def run_ds_main_pipeline(
         f"task.terminate_after_training={terminate_after_training} "
         f"+task.max_exec_time={time_for_main_pipeline} "
     )
+    if alt_raw_data_root:
+        main_pipeline_command = f"ALT_RAW_DATA_ROOT={alt_raw_data_root} " + main_pipeline_command
 
     if default_response_path:
         main_pipeline_command += f"+agent.read_answer_from_file_path={default_response_path} "

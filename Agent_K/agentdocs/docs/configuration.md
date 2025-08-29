@@ -45,6 +45,7 @@ ATTEMPT=...
 TIME_LIMIT_SECONDS=172800
 MODEL_ID=qwen2.5-72b
 BLEND_AFTER_N=3
+CUDA_VISIBLE_DEVICES=...
 python run_complete_pipeline.py \
   --task_id=$TASK_ID \
   --prep_task=data_preprocessing \
@@ -60,7 +61,7 @@ python run_complete_pipeline.py \
   --blend_after_n=$BLEND_AFTER_N
 
 ```
-**Note: To run with class imbalance use flag `--use_ci_handling`**
+**Note: Use the flag `--use_ci_handling` to handle class imbalance**
 
 ## 🦾 ReAct Agent Runs
 

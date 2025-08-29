@@ -89,5 +89,5 @@ This data will be later used during the setup stage and in the main pipeline.
 
 ```shell
 RAW_DATA_PATH=...
-echo $RAW_DATA_PATH > ./root_path_to_raw_data.txt
+echo $RAW_DATA_PATH > ./root_path_to_raw_ds_data.txt
 ```

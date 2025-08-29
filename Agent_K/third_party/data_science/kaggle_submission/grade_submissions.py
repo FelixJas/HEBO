@@ -23,15 +23,28 @@ api = KaggleApi()
 api.authenticate()
 
 
-def update_json(file_path: Path, results: dict[str, ...]):
+def update_json(file_path: Path, results: dict):
+    # Read existing data
     if file_path.exists():
-        with open(file_path, "r") as f:
-            result_report = json.load(f)
+        try:
+            with open(file_path, "r") as f:
+                result_report = json.load(f)
+        except PermissionError:
+            print(f"Permission denied while reading {file_path}")
+            return
+        except json.JSONDecodeError:
+            print(f"Invalid JSON in {file_path}, overwriting")
+            result_report = {}
         result_report.update(results)
     else:
         result_report = results
-    with open(file_path, "w") as f:
-        json.dump(result_report, f)
+
+    # Write data
+    try:
+        with open(file_path, "w") as f:
+            json.dump(result_report, f, indent=2)
+    except PermissionError:
+        raise PermissionError(f"No permission to write {file_path}")
 
 
 def submit_submission(competition_name: str, submission_file_path: str, message: str) -> tuple[bool, str]:
@@ -39,8 +52,7 @@ def submit_submission(competition_name: str, submission_file_path: str, message:
     if os.path.exists(submission_file_path):
         command = [
             'kaggle', 'competitions', 'submit',
-            # '-c', competition_name,
-            competition_name,
+            '-c', competition_name,
             '-f', submission_file_path,
             '-m', message
         ]
@@ -142,7 +154,7 @@ def prepare_score_info(public_score: float, private_score: float, public_info: d
 
 
 def get_write_permission(dir_path: str | Path) -> None:
-    if os.environ["SUDO_PASSWORD"]:
+    if os.environ.get("SUDO_PASSWORD", None):
         os.system(f'echo {os.environ["SUDO_PASSWORD"]} | sudo -S chmod -R 777 {dir_path}')
 
 
@@ -264,7 +276,6 @@ def rank_submission(competition_name: str, public_score: float, private_score: f
         leader_boards = get_candidate_leaderboard_path(
             competition=competition, root_path_to_leaderboard=f"{leaderboard_dir}/{competition_name}"
         )
-        print(len(leader_boards))
         if len(leader_boards) == 0:
             for phase in ["public", "private"]:
                 download_leaderboard(
@@ -272,36 +283,40 @@ def rank_submission(competition_name: str, public_score: float, private_score: f
                 )
             leader_boards = get_candidate_leaderboard_path(competition=competition,
                                                            root_path_to_leaderboard=f"{leaderboard_dir}/{competition_name}")
+
         for leaderboard_file in leader_boards:
             if "public" in leaderboard_file:
-                public_leaderboard = pd.read_csv(leaderboard_file)
-                filtered_pl = handle_benchmark_entry(public_leaderboard, team_name)
-                total_submissions = filtered_pl.shape[0]
-                public_rank, public_quantile = get_quantiles_from_scores(
-                    scores=public_score, leaderboard=filtered_pl, is_lower_better=False, return_rank=True
-                )
+                lb_type = "public"
+                scores = public_score
+                info = public_info
+            elif "private" in leaderboard_file:
+                lb_type = "private"
+                scores = private_score
+                info = private_info
+            else:
+                continue  # skip files that are neither public nor private
 
-                public_medal = get_medal(rank=public_rank, n_entries=total_submissions)
-                public_info.update({
-                    "public_rank": public_rank,
-                    'public_quantile': public_quantile,
-                    'public_medal': public_medal.value,
-                    'total_submissions': total_submissions,
-                })
-            if "private" in leaderboard_file:
-                private_leaderboard = pd.read_csv(leaderboard_file)
-                filtered_pl = handle_benchmark_entry(private_leaderboard, team_name)
-                total_submissions = filtered_pl.shape[0]
-                private_rank, private_quantile = get_quantiles_from_scores(
-                    scores=private_score, leaderboard=filtered_pl, is_lower_better=False, return_rank=True
-                )
-                private_medal = get_medal(rank=private_rank, n_entries=total_submissions)
-                private_info.update({
-                    'private_rank': private_rank,
-                    'private_quantile': private_quantile,
-                    'private_medal': private_medal.value,
-                    'total_submissions': total_submissions,
-                })
+            # Load and filter leaderboard
+            leaderboard = pd.read_csv(leaderboard_file)
+            filtered_lb = handle_benchmark_entry(leaderboard, team_name)
+            total_submissions = filtered_lb.shape[0]
+
+            # Compute rank, quantile, medal
+            rank, quantile = get_quantiles_from_scores(
+                scores=scores,
+                leaderboard=filtered_lb,
+                is_lower_better=False,
+                return_rank=True
+            )
+            medal = get_medal(rank=rank, n_entries=total_submissions)
+
+            # Update the corresponding info dictionary
+            info.update({
+                f"{lb_type}_rank": rank,
+                f"{lb_type}_quantile": quantile,
+                f"{lb_type}_medal": medal.name.value,
+                "total_submissions": total_submissions,
+            })
 
     return public_info, private_info
 

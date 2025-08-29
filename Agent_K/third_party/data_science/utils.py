@@ -110,7 +110,9 @@ def download_leaderboard(
         phase (str): public or private
     """
 
-    zip_destination_ = f"{zip_destination}/{competition}"
+    zip_destination_path = Path(zip_destination)
+    zip_destination_ = str(zip_destination_path.absolute() / competition)
+
     os.makedirs(zip_destination_, exist_ok=True)
     result = kaggle_api.competitions_list(group="entered", search=competition)
 
@@ -172,39 +174,11 @@ def download_leaderboard(
         driver.execute_script(f"window.location.href='{download_url}'")
         # Wait for download to finish
         time.sleep(10)
-    pattern = os.path.join(
-        zip_destination_,
-        f"{competition}-{phase}leaderboard*.zip"
-    )
+    pattern = os.path.join(zip_destination_, f"{competition}-{phase}leaderboard*.zip")
+
     zip_file = glob.glob(pattern)
-    ldb = read_leaderboard(competition, Path(zip_file[-1]), Path(zip_destination_), phase)
-
-
-def read_leaderboard(
-        competition: str,
-        zip_file: Path,
-        destination_folder: Path,
-        phase: str,
-) -> pd.DataFrame:
-    """Read leaderboard scores from file.
-
-    Args:
-        competition (str): Identifier of the competition
-        zip_file (Path): Zip file containing the leaderboard
-        destination_folder (Path): Where to extract the zip file contents.
-        phase (str): public or private
-
-    Returns:
-        scores (np.array): Leaderboard scores.
-    """
-    with zipfile.ZipFile(zip_file, "r") as zip_ref:
-        zip_ref.extractall(destination_folder)
-
-    # the file contains the download date in its name so we consider the case where
-    # there are several of them. they should all be the same.
-    files = list(destination_folder.glob(f"{competition}-{phase}leaderboard-*.csv"))
-    leaderboard_file = files[0]
-    return pd.read_csv(leaderboard_file)
+    with zipfile.ZipFile(str(zip_file[-1]), "r") as zip_ref:
+        zip_ref.extractall(zip_destination_)
 
 
 def recursive_chmod(path: str, mode: int) -> None:

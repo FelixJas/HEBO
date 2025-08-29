@@ -26,7 +26,7 @@ dependencies = [
 "chardet==5.2.0 ; python_version >= '3.10' and python_version < '3.12'",
 "charset-normalizer==3.3.2 ; python_version >= '3.10' and python_version < '3.12'",
 "click==8.1.7 ; python_version >= '3.10' and python_version < '3.12'",
-"colorama==0.4.6 ; python_version >= '3.10' and python_version < '3.12' and (sys_platform == 'win32' or platform_system == 'Windows')",
+"colorama==0.4.6 ; python_version >= '3.10' and python_version < '3.12'",
 "coloredlogs==15.0.1 ; python_version >= '3.10' and python_version < '3.12'",
 "colorlog==6.8.2 ; python_version >= '3.10' and python_version < '3.12'",
 "contourpy==1.2.0 ; python_version >= '3.10' and python_version < '3.12'",
@@ -169,7 +169,6 @@ dependencies = [
 "wrapt==1.16.0 ; python_version >= '3.10' and python_version < '3.12'",
 "xxhash==3.4.1 ; python_version >= '3.10' and python_version < '3.12'",
 "yarl==1.9.4 ; python_version >= '3.10' and python_version < '3.12'",
-"HEBO @ git+https://github.com/huawei-noah/HEBO.git@509d3e8fe34c663e22918dc07b6c4a7428056728#subdirectory=HEBO",
 ]
 
 [project.optional-dependencies]
@@ -179,7 +178,7 @@ backend = [
     "einops==0.7.0"
 ]
 datascience = [
-    "hebo",
+    "HEBO @ git+https://github.com/huawei-noah/HEBO.git@509d3e8fe34c663e22918dc07b6c4a7428056728#subdirectory=HEBO",
     "scikit-learn==1.2.2",
     "scikit-posthocs==0.11.4",
     "tensorboard==2.16.2",
