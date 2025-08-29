@@ -149,6 +149,7 @@ variable while running the command.</p>
 <span class="nv">ATTEMPT_SPEC</span><span class="o">=</span>...<span class="w"> </span>
 <span class="nv">ATTEMPT</span><span class="o">=</span>...<span class="w"> </span>
 <span class="nv">BLEND_AFTER_N</span><span class="o">=</span>...
+<span class="nv">CUDA_VISIBLE_DEVICES</span><span class="o">=</span>...
 python<span class="w"> </span>run_complete_pipeline.py<span class="w"> </span><span class="se">\</span>
 <span class="w">  </span>--task_id<span class="o">=</span><span class="nv">$TASK_ID</span><span class="w"> </span><span class="se">\</span>
 <span class="w">  </span>--prep_task<span class="o">=</span>data_preprocessing<span class="w"> </span><span class="se">\</span>
@@ -207,6 +208,10 @@ python<span class="w"> </span>run_complete_pipeline.py<span class="w"> </span><s
 <tr>
 <td><code>BLEND_AFTER_N</code></td>
 <td>create a blend solution after n success submissions</td>
+</tr>
+<tr>
+<td><code>CUDA_VISIBLE_DEVICES</code></td>
+<td>CUDA device ID(s)</td>
 </tr>
 </tbody>
 </table>

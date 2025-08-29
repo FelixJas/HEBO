@@ -153,6 +153,7 @@ taskset<span class="w"> </span>-c<span class="w"> </span><span class="nv">$CPU_R
 <span class="nv">TIME_LIMIT_SECONDS</span><span class="o">=</span><span class="m">172800</span>
 <span class="nv">MODEL_ID</span><span class="o">=</span>qwen2.5-72b
 <span class="nv">BLEND_AFTER_N</span><span class="o">=</span><span class="m">3</span>
+<span class="nv">CUDA_VISIBLE_DEVICES</span><span class="o">=</span>...
 python<span class="w"> </span>run_complete_pipeline.py<span class="w"> </span><span class="se">\</span>
 <span class="w">  </span>--task_id<span class="o">=</span><span class="nv">$TASK_ID</span><span class="w"> </span><span class="se">\</span>
 <span class="w">  </span>--prep_task<span class="o">=</span>data_preprocessing<span class="w"> </span><span class="se">\</span>
@@ -167,7 +168,7 @@ python<span class="w"> </span>run_complete_pipeline.py<span class="w"> </span><s
 <span class="w">  </span>--max_time_per_submission<span class="o">=</span><span class="nv">$MAX_TIME_PER_SUBMISSION_SECONDS</span><span class="w"> </span><span class="se">\</span>
 <span class="w">  </span>--blend_after_n<span class="o">=</span><span class="nv">$BLEND_AFTER_N</span>
 </code></pre></div>
-<strong>Note: To run with class imbalance use flag <code>--use_ci_handling</code></strong></p>
+<strong>Note: Use the flag <code>--use_ci_handling</code> to handle class imbalance</strong></p>
 <h2 id="react-agent-runs">🦾 ReAct Agent Runs<a class="headerlink" href="#react-agent-runs" title="Permanent link">&para;</a></h2>
 <h3 id="react-agent-no-rag">🤖 ReAct Agent (No RAG)<a class="headerlink" href="#react-agent-no-rag" title="Permanent link">&para;</a></h3>
 <div class="highlight"><pre><span></span><code><span class="nv">TASK_ID</span><span class="o">=</span>...<span class="w"> </span>
