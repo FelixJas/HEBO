@@ -14,9 +14,10 @@ nav:
       - RAG Database creation: rag.md
   - Submitting to Kaggle:
       - Submission: Submission.md
+  - Running the Agent:
+      - Running the full pipeline: pipeline.md
   - Extras:
       - Visualization: visualize.md
-     #  - Additional Docs: additional.md
   - Reproducing Results:
       - Running Agent K: agentkresults.md
       - Running ReAct baselines: reactresults.md

@@ -1334,7 +1334,7 @@ class SelectBlendSubmissions(Command):
     output_keys: dict[str, MemKey] = {MemKey.SELECTED_SUBMISSIONS_BLEND.value: MemKey.SELECTED_SUBMISSIONS_BLEND}
 
     def func(self, agent: LLMAgent, ask_template: str, selected_submissions_blend: MemKey):
-        choices = [sub.name for sub in agent.memory.retrieve(MemKey.SUBMISSION_LIST)]  # TODO~ integrate choices
+        choices = [sub.name for sub in agent.memory.retrieve(MemKey.SUBMISSION_LIST)]
         prompt_kwargs = {"memory": agent.memory, "submissions": agent.memory.retrieve(tags=MemKey.SUBMISSION_LIST)}
         response = agent.safe_parsing_chat_completion(
             ask_template=ask_template,

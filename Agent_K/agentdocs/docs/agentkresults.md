@@ -23,9 +23,6 @@ TIME_LIMIT_SECONDS=86400
 MODEL_ID=qwen2.5-72b 
 taskset -c $CPU_RANGE python run_complete_pipeline.py \
   --task_id $TASK_ID \
-  --prep_task data_preprocessing \
-  --prep_method data-prep-flow \
-  --ds_method agent-k-solve \
   --llm $MODEL_ID \
   --code-llm $MODEL_ID \
   --total_time $TIME_LIMIT_SECONDS \
@@ -48,9 +45,6 @@ BLEND_AFTER_N=3
 CUDA_VISIBLE_DEVICES=...
 python run_complete_pipeline.py \
   --task_id=$TASK_ID \
-  --prep_task=data_preprocessing \
-  --prep_method=data-prep-flow \
-  --ds_method=agent-k-solve \
   --llm=$MODEL_ID \
   --code-llm=$MODEL_ID \
   --total_time=$TIME_LIMIT_SECONDS \
@@ -61,4 +55,36 @@ python run_complete_pipeline.py \
   --blend_after_n=$BLEND_AFTER_N
 
 ```
+
+🤖 Running Agent K (Scaffold + Post-Scaffold + Submission)
+```bash
+MAX_TIME_PER_SUBMISSION_SECONDS=
+ALT_RAW_DATA_ROOT=
+TASK_ID=
+MODEL_ID=qwen2.5-72b
+TIME_LIMIT_SECONDS=172800(CV/NLP competitions) or 86400(Tabular competitions)
+ATTEMPT_SPEC=2days
+ATTEMPT=0
+BLEND_AFTER_N=3
+POST_SCAFFOLD_TOP_N=3
+POST_SCAFFOLD_TIMEOUT=1000
+POST_SCAFFOLD_LLM=qwen2.5-72b
+LEADERBOARD_DIR=
+CUDA_VISIBLE_DEVICES= SUDO_PASSWORD= python script/run_complete_pipeline_with_react.py \
+--task_id=$TASK_ID \
+--llm=$MODEL_ID \
+--code_llm=$MODEL_ID \
+--total_time=$TIME_LIMIT_SECONDS \
+--attempt=$ATTEMPT \
+--attempt_spec=$ATTEMPT_SPEC \
+--max_time_per_submission=$MAX_TIME_PER_SUBMISSION_SECONDS \
+--alt_raw_data_root=$ALT_RAW_DATA_ROOT \
+--blend_after_n=$BLEND_AFTER_N \
+--post_scaffold_top_n=$POST_SCAFFOLD_TOP_N \
+--post_scaffold_timeout=$POST_SCAFFOLD_TIMEOUT \
+--post_scaffold_llm=$POST_SCAFFOLD_LLM \
+--leaderboards_dir=$LEADERBOARD_DIR
+```
+
+
 **Note: Use the flag `--use_ci_handling` to handle class imbalance**

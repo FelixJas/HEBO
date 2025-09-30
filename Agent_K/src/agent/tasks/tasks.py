@@ -55,5 +55,4 @@ class Task(ABC):
     @abstractmethod
     def answer_parser(self, raw_response: str) -> str:
         """Return a parsed response."""
-        # TODO~ rename / extract / improve
         pass

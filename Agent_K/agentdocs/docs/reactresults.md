@@ -24,6 +24,8 @@ TOKENIZERS_PARALLELISM=False aide \
       agent.use_rag=False
 ```
 ### 📚 ReAct Agent + RAG
+
+To set up a RAG database, refer to the [ReactAgent](reactagent.md) section.
 ```bash
 TASK_ID=... 
 TOP_N=... 
@@ -33,6 +35,7 @@ TIME_OUT_SECONDS=32400 (Tabular), 64800 (CV/NLP)
 WORKSPACE_DIR=... 
 MODEL_ID=Qwen/Qwen2.5-72B-Instruct  
 DATA_DIR=... 
+RAG_DB_PATH=...
 TOKENIZERS_PARALLELISM=False aide \
       data_dir=${DATA_DIR}/${TASK_ID} \
       exp_name="${TASK_ID}" \
@@ -44,7 +47,8 @@ TOKENIZERS_PARALLELISM=False aide \
       workspace_dir="${WORKSPACE_DIR}" \
       agent.code.model="${MODEL_ID}" \
       agent.feedback.model="${MODEL_ID}" \
-      agent.use_rag=True
+      agent.use_rag=True \
+      agent.rag_path="${RAG_DB_PATH}"
 ```
 
 ### 💡 ReAct Agent from COT

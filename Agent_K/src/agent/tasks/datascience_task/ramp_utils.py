@@ -185,7 +185,6 @@ def make_train_test(
     #     test_data = test_data.loc[train_data.index]
     #     sample_submission = sample_submission.loc[train_data.index]
 
-    # TODO~ clean
     # tasks with too large datasets might never finish, subsampling their data for faster ramp-setup check
     if post_setup and len(train_data) > MAX_ROWS:
         print(f"Dataset of {challenge_name} is very large, we sub-sample 1k rows", flush=True)
@@ -325,7 +324,6 @@ def make_metadata(
     else:
         raise ValueError("Metric not present!")
 
-    # TODO~ clean
     # Fix naming for RAMP
     if metric_type == "normalizedgini": metric_type = "ngini"
     if metric_type == "negativeloglikelihood": metric_type = "nll"
@@ -348,9 +346,6 @@ def make_metadata(
             positive_class = tabular_dataset.get_positive_class()
             positive_class = {k: str(v) for k, v in positive_class.items()}
             positive_class_name, positive_class_value = list(positive_class.items())[0]
-            # with open(info_path / "metadata" / "positive_class.json", "r") as f:
-            #     positive_class = json.load(f)
-            #     positive_class_name, positive_class_value = list(positive_class.items())[0]
         except FileNotFoundError as e:
             print(f"prediction_type: {prediction_type}")
             print(f"metric_type: {metric_type}")
@@ -393,7 +388,6 @@ def make_metadata(
     # ----------------------------
 
     # ----------------------------
-    # TODO~ clean
     # Add feature types to metadata
     # ---------------------------
     #  The reason why we do this is because

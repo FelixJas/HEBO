@@ -12,7 +12,7 @@ This guide explains how to add support for a new LLM and use it within the Agent
 The simplest way to add a new model is via HuggingFace, either by loading it from the hub or from a local path. To do this, add a new config under:
 
 ```
-../configs/llm/hf/
+./configs/llm/hf/
 ```
 
 Update the config with the model ID and context length. You can also change `model_id` to a locally downloaded model path to avoid download times.
@@ -29,7 +29,7 @@ context_length: 8192
 tokenizer_kwargs: {}
 """
 
-with open("../configs/llm/hf/example_openchat-3.5.yaml", "w") as file:
+with open("./configs/llm/hf/example_openchat-3.5.yaml", "w") as file:
     file.write(llm_config)
 ```
 

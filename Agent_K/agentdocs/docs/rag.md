@@ -1,12 +1,19 @@
 # RAG Database creation
 
-There were two different types of items in the RAG Database.
+We have collected high-quality discussions and notebooks from past Kaggle competitions.
+These documents are pre-processed into notebook summaries and technical discussions ,and are indexed for semantic retrieval. There were two different types of items in the RAG Database.
+
+
 1. Technical Reports: These are the reports that correspond to the top solutions for the kaggle competition. 
 
-<img src="assets/technical_reports.png" alt="technical report" width="200"/>
 
-2. Competition notebooks: T
+2. Competition notebooks: The notebooks from competitors with top scores in the competition which are later summarised.
 
+All processed items are **indexed for semantic retrieval**, allowing the agent to leverage past solutions and insights when tackling new tasks.  
+
+---
+
+## 📊 Composition of the RAG Database
 
 | competitions                                    | notebook_summaries | technical_reports | Type       |
 |-------------------------------------------------|--------------------|------------------|------------|
@@ -21,7 +28,7 @@ There were two different types of items in the RAG Database.
 | happy-whale-and-dolphin                         | 10                 | 10               | img        |
 | commonlitreadabilityprize                       | 10                 | 10               | text       |
 | amex-default-prediction                         | 10                 | 10               | tab        |
-| rsna-miccai-brain-tumor-radiogenomic-classification | 10              | 10               | img        |
+| rsna-miccai-brain-tumor-radiogenomic-classification | 10                 | 10               | img        |
 | rsna-2023-abdominal-trauma-detection            | 10                 | 10               | img        |
 | commonlit-evaluate-student-summaries            | 10                 | 10               | text       |
 | feedback-prize-effectiveness                    | 10                 | 10               | text       |
@@ -29,7 +36,7 @@ There were two different types of items in the RAG Database.
 | mens-march-mania-2022                           | 10                 | 6                | tab        |
 | petfinder-pawpularity-score                     | 10                 | 10               | img, tab   |
 | cassava-leaf-disease-classification             | 10                 | 10               | img        |
-| llm-detect-ai-generated-text                    | 10                 | 10               | text       |
+| llm-detect-ai-generated-text                    | 10               | 10               | text       |
 | home-credit-credit-risk-model-stability         | 10                 | 2                | tab        |
 | rsna-breast-cancer-detection                    | 10                 | 10               | img        |
 | learning-agency-lab-automated-essay-scoring-2   | 10                 | 8                | text       |

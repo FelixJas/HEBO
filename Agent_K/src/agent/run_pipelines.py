@@ -191,7 +191,6 @@ def run_setup_pipeline(
         if alt_raw_data_root:
             setup_command = f"ALT_RAW_DATA_ROOT={alt_raw_data_root} " + setup_command
 
-
         if default_response_path:
             setup_command += f"+agent.read_answer_from_file_path={default_response_path} "
 
@@ -415,6 +414,20 @@ def run_ds_tabular_ramp(
     return is_successful
 
 
+def get_attempt_path(workspace_name: str, task_id: str, attempt: int | None, attempt_spec: str) -> Path:
+    if Path(workspace_name).is_absolute():
+        working_dir = Path(workspace_name)
+    else:
+        working_dir = PROJECT_ROOT / workspace_name
+
+    if attempt is not None:
+        exp_dir = Path(working_dir, f"attempt_{attempt}{attempt_spec}", task_id)
+    else:
+        exp_dir = Path(working_dir, task_id)
+
+    return exp_dir
+
+
 def run_setup_and_main_pipline(
         workspace_name: str,
         task_id: str,
@@ -477,16 +490,9 @@ def run_setup_and_main_pipline(
             - "main" (bool, optional): Indicates if the main pipeline succeeded (only present if setup passed).
 
     """
-    if Path(workspace_name).is_absolute():
-        working_dir = Path(workspace_name)
-    else:
-        working_dir = PROJECT_ROOT / workspace_name
-
-    if attempt is not None:
-        exp_dir = Path(working_dir, f"attempt_{attempt}{attempt_spec}", task_id)
-    else:
-        exp_dir = Path(working_dir, task_id)
-
+    exp_dir = get_attempt_path(
+        workspace_name=workspace_name, task_id=task_id, attempt=attempt, attempt_spec=attempt_spec
+    )
     setup_version = 0
     setup_log_dir = exp_dir / "logs" / "setup"
 
@@ -577,9 +583,6 @@ def run_setup_and_main_pipline(
 def main(
         workspace_name: str,
         task_id: str,
-        prep_task: str,
-        prep_method: str,
-        ds_method: str,
         llm: str,
         code_llm: str,
         is_local_task: bool,
@@ -608,9 +611,6 @@ def main(
     Args:
         workspace_name: Workspace directory name or path.
         task_id: Unique identifier for the competition or task.
-        prep_task: The data preparation task name.
-        prep_method: The data preparation method name.
-        ds_method: The data science method name.
         llm: Config identifier of the language model.
         code_llm: Config identifier of the language model used for coding.
         is_local_task: Whether the task is local rather than from kaggle.
@@ -636,9 +636,9 @@ def main(
     run_status = run_setup_and_main_pipline(
         workspace_name=workspace_name,
         task_id=task_id,
-        prep_task=prep_task,
-        prep_method=prep_method,
-        ds_method=ds_method,
+        prep_task="data_preprocessing",
+        prep_method="data-prep-flow",
+        ds_method="agent-k-solve",
         llm=llm,
         code_llm=code_llm,
         is_local_task=is_local_task,
@@ -669,6 +669,30 @@ def main(
     else:
         print(f"❌ Failed to setup successfully.", flush=True)
 
+def add_shared_args(parser: argparse.ArgumentParser) -> None:
+    # Core task config
+    parser.add_argument("--task_id", type=str, required=True, help="Competition or task ID.")
+    parser.add_argument("--llm", type=str, required=True, help="LLM for task execution.")
+    parser.add_argument("--code_llm", type=str, required=True, help="LLM for code generation.")
+
+    # Runtime control
+    parser.add_argument("--total_time", type=int, required=True, help="Total run time in seconds.")
+    parser.add_argument("--max_cpu", type=int, default=0, help="Max CPU usage.")
+    parser.add_argument("--max_setups", type=int, default=MAX_SETUPS, help="Max number of setups retrials.")
+
+
+    # Optional flags
+    parser.add_argument("--workspace_name", type=str, default="workspace", help="Workspace folder or path.")
+    parser.add_argument("--tabular_task", action='store_true', help="Use tabular pipeline variant.")
+    parser.add_argument("--is_local_task", action='store_true', help="Use local data instead of Kaggle.")
+    parser.add_argument("--attempt", type=int, required=False, default=None, help="Attempt number.")
+    parser.add_argument("--attempt_spec", type=str, default="", help="Extra attempt identifier.")
+
+    parser.add_argument("--max_time_per_submission", type=int, required=True, help="Maximum time per submission")
+    parser.add_argument("--alt_raw_data_root", type=str, required=False, help="Alternate data root directory")
+    parser.add_argument("--blend_after_n", type=int, required=False, help="Blend after n runs")
+    parser.add_argument("--use_ci_handling", action='store_true', default=False, )
+
 
 def parse_args() -> argparse.Namespace:
     """
@@ -678,33 +702,9 @@ def parse_args() -> argparse.Namespace:
         Parsed arguments.
     """
     parser = argparse.ArgumentParser(description="Run setup and main pipeline with timeout.")
-
-    # Core task config
-    parser.add_argument("--task_id", type=str, required=True, help="Competition or task ID.")
-    parser.add_argument("--prep_method", type=str, required=True, help="Data preparation method.")
-    parser.add_argument("--prep_task", type=str, required=True, help="Data preparation task.")
-    parser.add_argument("--ds_method", type=str, required=True, help="Data science method.")
-    parser.add_argument("--llm", type=str, required=True, help="LLM for task execution.")
-    parser.add_argument("--code_llm", type=str, required=True, help="LLM for code generation.")
-
-    # Runtime control
-    parser.add_argument("--total_time", type=int, required=True, help="Total run time in seconds.")
-    parser.add_argument("--max_cpu", type=int, default=0, help="Max CPU usage.")
-    parser.add_argument("--max_setups", type=int, default=MAX_SETUPS, help="Max number of setups retrials.")
-    parser.add_argument("--terminate_after_training", action='store_true', help="Stop after training.")
-
-    # Optional flags
-    parser.add_argument("--workspace_name", type=str, default="workspace", help="Workspace folder or path.")
-    parser.add_argument("--tabular_task", action='store_true', help="Use tabular pipeline variant.")
+    add_shared_args(parser=parser)
     parser.add_argument("--run_setup_only", action='store_true', help="Only run the setup pipeline.")
-    parser.add_argument("--is_local_task", action='store_true', help="Use local data instead of Kaggle.")
-    parser.add_argument("--attempt", type=int, required=False, default=None, help="Attempt number.")
-    parser.add_argument("--attempt_spec", type=str, default="", help="Extra attempt identifier.")
-
-    parser.add_argument("--max_time_per_submission", type=int, required=True, help="Maximum time per submission")
-    parser.add_argument("--alt_raw_data_root", type=str, required=False, help="Alternate data root directory")
-    parser.add_argument("--blend_after_n", type=int, required=False, help="Blend after n runs")
-    parser.add_argument("--use_ci_handling", action='store_true', default=False, )
+    parser.add_argument("--terminate_after_training", action='store_true', help="Stop after training.")
 
     return parser.parse_args()
 

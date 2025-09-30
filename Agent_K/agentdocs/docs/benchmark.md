@@ -579,7 +579,7 @@
     </tr>
     <tr>
       <td><a href="https://www.kaggle.com/competitions/predict-who-is-more-influential-in-a-social-network" target="_blank">predict-who-is-more-influential-in-a-social-network</a></td>
-      <td><span class="competition-icon" style="background-color:#999;"></span></td>
+      <td><span class="competition-icon" style="background-color:#1f77b4;">RG</span><span class="competition-icon" style="background-color:#2ca02c;">BC</span></td>
       <td><span class="competition-icon" style="background-color:#8c564b;">F</span></td>
       <td>Tab</td>
       <td>5</td>

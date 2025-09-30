@@ -15,9 +15,6 @@ if __name__ == "__main__":
     main(
         workspace_name=args.workspace_name,
         task_id=args.task_id,
-        prep_task=args.prep_task,
-        prep_method=args.prep_method,
-        ds_method=args.ds_method,
         llm=args.llm,
         code_llm=args.llm,
         is_local_task=args.is_local_task,

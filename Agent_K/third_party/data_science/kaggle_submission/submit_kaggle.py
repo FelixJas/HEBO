@@ -15,7 +15,7 @@ init(autoreset=True)
 def run_grading_command(competition: str, submission_file_path: str, message: str, result_file_name: str,
                         path_to_leaderboard_dir: str, team_name: str):
     command = [
-        "/home/abhineet/miniconda3/envs/agent1/bin/python",
+        "python",
         "third_party/data_science/kaggle_submission/grade_submissions.py",
         "--competition", competition,
         "--submissions_file", submission_file_path,
@@ -27,7 +27,7 @@ def run_grading_command(competition: str, submission_file_path: str, message: st
     ]
 
     try:
-        print(f"Running command for {submission_file_path}...")
+        print(f"Running command for {submission_file_path}: \n```\n{' '.join(command)}\n```")
         subprocess.run(command, check=True)
         return True
     except Exception as e:

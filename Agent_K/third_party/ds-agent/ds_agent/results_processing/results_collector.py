@@ -317,6 +317,14 @@ class SessionStateKeyHelper(BaseModel):
     def get_setup_success_key() -> str:
         return "agent_k_setup_success_per_types"
 
+    @staticmethod
+    def get_competition_dates_key() -> str:
+        return "competition_dates"
+
+    @staticmethod
+    def get_comp_ordering_key() -> str:
+        return "competition_ordering"
+
 
 def collect_setup_results(
         competitions: list[Competition], session_state: MutableMapping[str | int, ...],

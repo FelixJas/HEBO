@@ -246,11 +246,8 @@ class OpenAIAPILanguageBackend(LanguageBackend):
                     import re
                     max_len_err = re.findall("This model\'s maximum context length is [0-9]+ tokens", e.message)
                     if len(max_len_err) > 0:
-                        # max_length = int(max_len_err[0].split()[-2])
-                        # TODO: shrink the message or handle that in another way
                         raise
-                    else:
-                        raise
+                    raise
                 raw_output_text = response.choices[0].message.content.strip()
                 api_usage_input = response.usage.prompt_tokens
                 api_usage_output = response.usage.completion_tokens
@@ -428,12 +425,9 @@ class OpenAIAPIEmbeddingBackend(EmbeddingBackend):
     def embed_text(self, text: str) -> list[float]:
         text = text.replace("\n", " ")
         ret_val = self.client.embeddings.create(input=[text], model=self.model_id)
-        # TODO~ log usage
-
         return np.array(ret_val.data[0].embedding)
 
     def batch_embed_texts(self, texts: list[str]) -> list[list[float]]:
         texts = [text.replace("\n", " ") for text in texts]
         ret_val = self.client.embeddings.create(input=texts, model=self.model_id)
-        # TODO~ log usage
         return np.vstack(ret_val.data[0].embedding)

@@ -98,7 +98,6 @@ def retrieve_and_filter_data(path, episode_checkpoint, returns_threshold):
         return {}, [], episode_checkpoint
 
     data["reward"] = pd.to_numeric(data["reward"], errors="coerce")
-    # TODO~ filter out with nan reward
     for e in episode_nums:
         v = data[data["episode"] == e]
         returns = v["reward"].sum()

@@ -34,9 +34,6 @@ ATTEMPT=...
 WORKSPACE_NAME=... 
 taskset -c $CPU_RANGE python run_complete_pipeline.py \
   --task_id $TASK_ID \
-  --prep_task data_preprocessing \
-  --prep_method data-prep-flow \
-  --ds_method agent-k-solve \
   --llm $MODEL_ID \
   --code-llm $MODEL_ID \
   --total_time $TIME_LIMIT_SECONDS \

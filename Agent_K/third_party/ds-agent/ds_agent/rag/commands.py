@@ -20,11 +20,11 @@ class StartRAGDB(Command):
     db_embedding_model_name: str = "thenlper/gte-small"
 
     disabled: bool = False
-
+    
     def func(self, agent):
         if self.disabled:
             return
-
+        
         DB_FAISS.start(
             db_path=self.db_path, model_name=self.db_embedding_model_name, embedded_field=self.db_embedded_field
         )
