@@ -84,6 +84,11 @@
                   <li class="toctree-l1"><a class="reference internal" href="../Submission/">Submission</a>
                   </li>
               </ul>
+              <p class="caption"><span class="caption-text">Running the Agent</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../pipeline/">Running the full pipeline</a>
+                  </li>
+              </ul>
               <p class="caption"><span class="caption-text">Extras</span></p>
               <ul>
                   <li class="toctree-l1"><a class="reference internal" href="../visualize/">Visualization</a>
@@ -152,9 +157,6 @@ variable while running the command.</p>
 <span class="nv">CUDA_VISIBLE_DEVICES</span><span class="o">=</span>...
 python<span class="w"> </span>run_complete_pipeline.py<span class="w"> </span><span class="se">\</span>
 <span class="w">  </span>--task_id<span class="o">=</span><span class="nv">$TASK_ID</span><span class="w"> </span><span class="se">\</span>
-<span class="w">  </span>--prep_task<span class="o">=</span>data_preprocessing<span class="w"> </span><span class="se">\</span>
-<span class="w">  </span>--prep_method<span class="o">=</span>data-prep-flow<span class="w"> </span><span class="se">\</span>
-<span class="w">  </span>--ds_method<span class="o">=</span>agent-k-solve<span class="w"> </span><span class="se">\</span>
 <span class="w">  </span>--llm<span class="o">=</span><span class="nv">$MODEL_ID</span><span class="w"> </span><span class="se">\</span>
 <span class="w">  </span>--code-llm<span class="o">=</span><span class="nv">$MODEL_ID</span><span class="w"> </span><span class="se">\</span>
 <span class="w">  </span>--total_time<span class="o">=</span><span class="nv">$TIME_LIMIT_SECONDS</span><span class="w"> </span><span class="se">\</span>

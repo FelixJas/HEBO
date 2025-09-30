@@ -72,6 +72,11 @@
                   <li class="toctree-l1"><a class="reference internal" href="../Submission/">Submission</a>
                   </li>
               </ul>
+              <p class="caption"><span class="caption-text">Running the Agent</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../pipeline/">Running the full pipeline</a>
+                  </li>
+              </ul>
               <p class="caption"><span class="caption-text">Extras</span></p>
               <ul>
                   <li class="toctree-l1"><a class="reference internal" href="../visualize/">Visualization</a>
@@ -142,9 +147,6 @@ Each task was run with a maximum time limit of 24 hours on 8 cpus. Here is how t
 <span class="nv">MODEL_ID</span><span class="o">=</span>qwen2.5-72b<span class="w"> </span>
 taskset<span class="w"> </span>-c<span class="w"> </span><span class="nv">$CPU_RANGE</span><span class="w"> </span>python<span class="w"> </span>run_complete_pipeline.py<span class="w"> </span><span class="se">\</span>
 <span class="w">  </span>--task_id<span class="w"> </span><span class="nv">$TASK_ID</span><span class="w"> </span><span class="se">\</span>
-<span class="w">  </span>--prep_task<span class="w"> </span>data_preprocessing<span class="w"> </span><span class="se">\</span>
-<span class="w">  </span>--prep_method<span class="w"> </span>data-prep-flow<span class="w"> </span><span class="se">\</span>
-<span class="w">  </span>--ds_method<span class="w"> </span>agent-k-solve<span class="w"> </span><span class="se">\</span>
 <span class="w">  </span>--llm<span class="w"> </span><span class="nv">$MODEL_ID</span><span class="w"> </span><span class="se">\</span>
 <span class="w">  </span>--code-llm<span class="w"> </span><span class="nv">$MODEL_ID</span><span class="w"> </span><span class="se">\</span>
 <span class="w">  </span>--total_time<span class="w"> </span><span class="nv">$TIME_LIMIT_SECONDS</span><span class="w"> </span><span class="se">\</span>
@@ -165,9 +167,6 @@ taskset<span class="w"> </span>-c<span class="w"> </span><span class="nv">$CPU_R
 <span class="nv">CUDA_VISIBLE_DEVICES</span><span class="o">=</span>...
 python<span class="w"> </span>run_complete_pipeline.py<span class="w"> </span><span class="se">\</span>
 <span class="w">  </span>--task_id<span class="o">=</span><span class="nv">$TASK_ID</span><span class="w"> </span><span class="se">\</span>
-<span class="w">  </span>--prep_task<span class="o">=</span>data_preprocessing<span class="w"> </span><span class="se">\</span>
-<span class="w">  </span>--prep_method<span class="o">=</span>data-prep-flow<span class="w"> </span><span class="se">\</span>
-<span class="w">  </span>--ds_method<span class="o">=</span>agent-k-solve<span class="w"> </span><span class="se">\</span>
 <span class="w">  </span>--llm<span class="o">=</span><span class="nv">$MODEL_ID</span><span class="w"> </span><span class="se">\</span>
 <span class="w">  </span>--code-llm<span class="o">=</span><span class="nv">$MODEL_ID</span><span class="w"> </span><span class="se">\</span>
 <span class="w">  </span>--total_time<span class="o">=</span><span class="nv">$TIME_LIMIT_SECONDS</span><span class="w"> </span><span class="se">\</span>
@@ -176,8 +175,36 @@ python<span class="w"> </span>run_complete_pipeline.py<span class="w"> </span><s
 <span class="w">  </span>--alt_raw_data_root<span class="o">=</span><span class="nv">$ALT_RAW_DATA_ROOT</span><span class="w"> </span><span class="se">\</span>
 <span class="w">  </span>--max_time_per_submission<span class="o">=</span><span class="nv">$MAX_TIME_PER_SUBMISSION_SECONDS</span><span class="w"> </span><span class="se">\</span>
 <span class="w">  </span>--blend_after_n<span class="o">=</span><span class="nv">$BLEND_AFTER_N</span>
-</code></pre></div>
-<strong>Note: Use the flag <code>--use_ci_handling</code> to handle class imbalance</strong></p>
+</code></pre></div></p>
+<p>🤖 Running Agent K (Scaffold + Post-Scaffold + Submission)
+<div class="highlight"><pre><span></span><code><span class="nv">MAX_TIME_PER_SUBMISSION_SECONDS</span><span class="o">=</span>
+<span class="nv">ALT_RAW_DATA_ROOT</span><span class="o">=</span>
+<span class="nv">TASK_ID</span><span class="o">=</span>
+<span class="nv">MODEL_ID</span><span class="o">=</span>qwen2.5-72b
+<span class="nv">TIME_LIMIT_SECONDS</span><span class="o">=</span><span class="m">172800</span><span class="o">(</span>CV/NLP<span class="w"> </span>competitions<span class="o">)</span><span class="w"> </span>or<span class="w"> </span><span class="m">86400</span><span class="o">(</span>Tabular<span class="w"> </span>competitions<span class="o">)</span>
+<span class="nv">ATTEMPT_SPEC</span><span class="o">=</span>2days
+<span class="nv">ATTEMPT</span><span class="o">=</span><span class="m">0</span>
+<span class="nv">BLEND_AFTER_N</span><span class="o">=</span><span class="m">3</span>
+<span class="nv">POST_SCAFFOLD_TOP_N</span><span class="o">=</span><span class="m">3</span>
+<span class="nv">POST_SCAFFOLD_TIMEOUT</span><span class="o">=</span><span class="m">1000</span>
+<span class="nv">POST_SCAFFOLD_LLM</span><span class="o">=</span>qwen2.5-72b
+<span class="nv">LEADERBOARD_DIR</span><span class="o">=</span>
+<span class="nv">CUDA_VISIBLE_DEVICES</span><span class="o">=</span><span class="w"> </span><span class="nv">SUDO_PASSWORD</span><span class="o">=</span><span class="w"> </span>python<span class="w"> </span>script/run_complete_pipeline_with_react.py<span class="w"> </span><span class="se">\</span>
+--task_id<span class="o">=</span><span class="nv">$TASK_ID</span><span class="w"> </span><span class="se">\</span>
+--llm<span class="o">=</span><span class="nv">$MODEL_ID</span><span class="w"> </span><span class="se">\</span>
+--code_llm<span class="o">=</span><span class="nv">$MODEL_ID</span><span class="w"> </span><span class="se">\</span>
+--total_time<span class="o">=</span><span class="nv">$TIME_LIMIT_SECONDS</span><span class="w"> </span><span class="se">\</span>
+--attempt<span class="o">=</span><span class="nv">$ATTEMPT</span><span class="w"> </span><span class="se">\</span>
+--attempt_spec<span class="o">=</span><span class="nv">$ATTEMPT_SPEC</span><span class="w"> </span><span class="se">\</span>
+--max_time_per_submission<span class="o">=</span><span class="nv">$MAX_TIME_PER_SUBMISSION_SECONDS</span><span class="w"> </span><span class="se">\</span>
+--alt_raw_data_root<span class="o">=</span><span class="nv">$ALT_RAW_DATA_ROOT</span><span class="w"> </span><span class="se">\</span>
+--blend_after_n<span class="o">=</span><span class="nv">$BLEND_AFTER_N</span><span class="w"> </span><span class="se">\</span>
+--post_scaffold_top_n<span class="o">=</span><span class="nv">$POST_SCAFFOLD_TOP_N</span><span class="w"> </span><span class="se">\</span>
+--post_scaffold_timeout<span class="o">=</span><span class="nv">$POST_SCAFFOLD_TIMEOUT</span><span class="w"> </span><span class="se">\</span>
+--post_scaffold_llm<span class="o">=</span><span class="nv">$POST_SCAFFOLD_LLM</span><span class="w"> </span><span class="se">\</span>
+--leaderboards_dir<span class="o">=</span><span class="nv">$LEADERBOARD_DIR</span>
+</code></pre></div></p>
+<p><strong>Note: Use the flag <code>--use_ci_handling</code> to handle class imbalance</strong></p>
               
             </div>
           </div><footer>

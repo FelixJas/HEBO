@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
       <link rel="shortcut icon" href="../img/favicon.ico" />
-    <title>RAG Database creation - Agent K Documentation</title>
+    <title>Running the full pipeline - Agent K Documentation</title>
     <link rel="stylesheet" href="../css/theme.css" />
     <link rel="stylesheet" href="../css/theme_extra.css" />
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
@@ -13,8 +13,8 @@
     
       <script>
         // Current page data
-        var mkdocs_page_name = "RAG Database creation";
-        var mkdocs_page_input_path = "rag.md";
+        var mkdocs_page_name = "Running the full pipeline";
+        var mkdocs_page_input_path = "pipeline.md";
         var mkdocs_page_url = null;
       </script>
     
@@ -61,14 +61,10 @@
                   </li>
               </ul>
               <p class="caption"><span class="caption-text">Running ReAct Agent</span></p>
-              <ul class="current">
+              <ul>
                   <li class="toctree-l1"><a class="reference internal" href="../reactagent/">ReAct Agent</a>
                   </li>
-                  <li class="toctree-l1 current"><a class="reference internal current" href="#">RAG Database creation</a>
-    <ul class="current">
-    <li class="toctree-l2"><a class="reference internal" href="#composition-of-the-rag-database">📊 Composition of the RAG Database</a>
-    </li>
-    </ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../rag/">RAG Database creation</a>
                   </li>
               </ul>
               <p class="caption"><span class="caption-text">Submitting to Kaggle</span></p>
@@ -77,8 +73,12 @@
                   </li>
               </ul>
               <p class="caption"><span class="caption-text">Running the Agent</span></p>
-              <ul>
-                  <li class="toctree-l1"><a class="reference internal" href="../pipeline/">Running the full pipeline</a>
+              <ul class="current">
+                  <li class="toctree-l1 current"><a class="reference internal current" href="#">Running the full pipeline</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#command-to-use">Command to use</a>
+    </li>
+    </ul>
                   </li>
               </ul>
               <p class="caption"><span class="caption-text">Extras</span></p>
@@ -111,8 +111,8 @@
         <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
   <ul class="wy-breadcrumbs">
     <li><a href=".." class="icon icon-home" aria-label="Docs"></a></li>
-          <li class="breadcrumb-item">Running ReAct Agent</li>
-      <li class="breadcrumb-item active">RAG Database creation</li>
+          <li class="breadcrumb-item">Running the Agent</li>
+      <li class="breadcrumb-item active">Running the full pipeline</li>
     <li class="wy-breadcrumbs-aside">
     </li>
   </ul>
@@ -121,173 +121,108 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
             <div class="section" itemprop="articleBody">
               
-                <h1 id="rag-database-creation">RAG Database creation<a class="headerlink" href="#rag-database-creation" title="Permanent link">&para;</a></h1>
-<p>We have collected high-quality discussions and notebooks from past Kaggle competitions.
-These documents are pre-processed into notebook summaries and technical discussions ,and are indexed for semantic retrieval. There were two different types of items in the RAG Database.</p>
+                <h1 id="running-the-full-pipeline">🚀 Running the Full Pipeline<a class="headerlink" href="#running-the-full-pipeline" title="Permanent link">&para;</a></h1>
+<p>Running the full pipeline involves the following steps:</p>
 <ol>
+<li>🧠 <strong>Run Agent K (Scaffold + Post-Scaffold)</strong> – Agent K consists of two stages:  </li>
+<li><strong>Scaffold Stage</strong>: analyzes the dataset and generates a problem-specific scaffold.  </li>
 <li>
-<p>Technical Reports: These are the reports that correspond to the top solutions for the kaggle competition. </p>
+<p><strong>Post-Scaffold Stage</strong>: runs the agent based on the ReAct framework using the scaffold to refine and improve solutions.  </p>
 </li>
 <li>
-<p>Competition notebooks: The notebooks from competitors with top scores in the competition which are later summarised.</p>
+<p>🔁 <strong>Iterative Task Solving</strong> – The ReAct-based Post-Scaffold continues solving the task iteratively on top of the scaffolded structure.  </p>
+</li>
+<li>
+<p>📤 <strong>Make Final Submission</strong> – Generate and submit the final output based on the agent’s results.  </p>
 </li>
 </ol>
-<p>All processed items are <strong>indexed for semantic retrieval</strong>, allowing the agent to leverage past solutions and insights when tackling new tasks.  </p>
-<hr />
-<h2 id="composition-of-the-rag-database">📊 Composition of the RAG Database<a class="headerlink" href="#composition-of-the-rag-database" title="Permanent link">&para;</a></h2>
+<h2 id="command-to-use">Command to use<a class="headerlink" href="#command-to-use" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code><span class="nv">MAX_TIME_PER_SUBMISSION_SECONDS</span><span class="o">=</span>...
+<span class="nv">ALT_RAW_DATA_ROOT</span><span class="o">=</span>...
+<span class="nv">TASK_ID</span><span class="o">=</span>...
+<span class="nv">MODEL_ID</span><span class="o">=</span>...
+<span class="nv">TIME_LIMIT_SECONDS</span><span class="o">=</span>...
+<span class="nv">ATTEMPT_SPEC</span><span class="o">=</span>...
+<span class="nv">ATTEMPT</span><span class="o">=</span>...
+<span class="nv">BLEND_AFTER_N</span><span class="o">=</span>...
+<span class="nv">POST_SCAFFOLD_TOP_N</span><span class="o">=</span>...
+<span class="nv">POST_SCAFFOLD_TIMEOUT</span><span class="o">=</span>...
+<span class="nv">POST_SCAFFOLD_LLM</span><span class="o">=</span>...
+<span class="nv">LEADERBOARD_DIR</span><span class="o">=</span>...
+<span class="nv">CUDA_VISIBLE_DEVICES</span><span class="o">=</span>...<span class="w"> </span>python<span class="w"> </span>script/run_complete_pipeline_with_react.py<span class="w"> </span><span class="se">\</span>
+--task_id<span class="o">=</span><span class="nv">$TASK_ID</span><span class="w"> </span><span class="se">\</span>
+--llm<span class="o">=</span><span class="nv">$MODEL_ID</span><span class="w"> </span><span class="se">\</span>
+--code_llm<span class="o">=</span><span class="nv">$MODEL_ID</span><span class="w"> </span><span class="se">\</span>
+--total_time<span class="o">=</span><span class="nv">$TIME_LIMIT_SECONDS</span><span class="w"> </span><span class="se">\</span>
+--attempt<span class="o">=</span><span class="nv">$ATTEMPT</span><span class="w"> </span><span class="se">\</span>
+--attempt_spec<span class="o">=</span><span class="nv">$ATTEMPT_SPEC</span><span class="w"> </span><span class="se">\</span>
+--max_time_per_submission<span class="o">=</span><span class="nv">$MAX_TIME_PER_SUBMISSION_SECONDS</span><span class="w"> </span><span class="se">\</span>
+--alt_raw_data_root<span class="o">=</span><span class="nv">$ALT_RAW_DATA_ROOT</span><span class="w"> </span><span class="se">\</span>
+--blend_after_n<span class="o">=</span><span class="nv">$BLEND_AFTER_N</span><span class="w"> </span><span class="se">\</span>
+--post_scaffold_top_n<span class="o">=</span><span class="nv">$POST_SCAFFOLD_TOP_N</span><span class="w"> </span><span class="se">\</span>
+--post_scaffold_timeout<span class="o">=</span><span class="nv">$POST_SCAFFOLD_TIMEOUT</span><span class="w"> </span><span class="se">\</span>
+--post_scaffold_llm<span class="o">=</span><span class="nv">$POST_SCAFFOLD_LLM</span><span class="w"> </span><span class="se">\</span>
+--leaderboards_dir<span class="o">=</span><span class="nv">$LEADERBOARD_DIR</span>
+</code></pre></div>
 <table>
 <thead>
 <tr>
-<th>competitions</th>
-<th>notebook_summaries</th>
-<th>technical_reports</th>
-<th>Type</th>
+<th>VARIABLE</th>
+<th>DESCRIPTION</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>UBC-OCEAN</td>
-<td>10</td>
-<td>10</td>
-<td>img, tab</td>
+<td><code>TASK_ID</code></td>
+<td>Competition slug or name of the task</td>
 </tr>
 <tr>
-<td>womens-march-mania-2022</td>
-<td>10</td>
-<td>7</td>
-<td>tab</td>
+<td><code>MODEL_ID</code></td>
+<td>ID of the LLM to be used</td>
 </tr>
 <tr>
-<td>predict-student-performance-from-game-play</td>
-<td>10</td>
-<td>10</td>
-<td>text, tab</td>
+<td><code>TIME_LIMIT_SECONDS</code></td>
+<td>Total time budget for the full run (in seconds)</td>
 </tr>
 <tr>
-<td>novozymes-enzyme-stability-prediction</td>
-<td>10</td>
-<td>7</td>
-<td>tab</td>
+<td><code>ATTEMPT</code></td>
+<td>Attempt number</td>
 </tr>
 <tr>
-<td>czil-cryo-et-object-identification</td>
-<td>10</td>
-<td>10</td>
-<td>img</td>
+<td><code>ATTEMPT_SPEC</code></td>
+<td>Specific configuration for the attempt</td>
 </tr>
 <tr>
-<td>jigsaw-toxic-severity-rating</td>
-<td>10</td>
-<td>10</td>
-<td>text</td>
+<td><code>MAX_TIME_PER_SUBMISSION_SECONDS</code></td>
+<td>Maximum time budget allowed per submission (in seconds)</td>
 </tr>
 <tr>
-<td>feedback-prize-english-language-learning</td>
-<td>10</td>
-<td>10</td>
-<td>text</td>
+<td><code>ALT_RAW_DATA_ROOT</code></td>
+<td>Path to the directory where raw data for the task is stored</td>
 </tr>
 <tr>
-<td>icr-identify-age-related-conditions</td>
-<td>10</td>
-<td>10</td>
-<td>tab</td>
+<td><code>BLEND_AFTER_N</code></td>
+<td>Number of submissions after which blending starts</td>
 </tr>
 <tr>
-<td>happy-whale-and-dolphin</td>
-<td>10</td>
-<td>10</td>
-<td>img</td>
+<td><code>POST_SCAFFOLD_TOP_N</code></td>
+<td>Number of best solutions to keep after the scaffold stage</td>
 </tr>
 <tr>
-<td>commonlitreadabilityprize</td>
-<td>10</td>
-<td>10</td>
-<td>text</td>
+<td><code>POST_SCAFFOLD_TIMEOUT</code></td>
+<td>Execution timeout for post-scaffold phase.</td>
 </tr>
 <tr>
-<td>amex-default-prediction</td>
-<td>10</td>
-<td>10</td>
-<td>tab</td>
+<td><code>POST_SCAFFOLD_LLM</code></td>
+<td>LLM to be used in the post-scaffold phase</td>
 </tr>
 <tr>
-<td>rsna-miccai-brain-tumor-radiogenomic-classification</td>
-<td>10</td>
-<td>10</td>
-<td>img</td>
+<td><code>LEADERBOARD_DIR</code></td>
+<td>Directory path where leaderboard results are stored</td>
 </tr>
 <tr>
-<td>rsna-2023-abdominal-trauma-detection</td>
-<td>10</td>
-<td>10</td>
-<td>img</td>
-</tr>
-<tr>
-<td>commonlit-evaluate-student-summaries</td>
-<td>10</td>
-<td>10</td>
-<td>text</td>
-</tr>
-<tr>
-<td>feedback-prize-effectiveness</td>
-<td>10</td>
-<td>10</td>
-<td>text</td>
-</tr>
-<tr>
-<td>predict-energy-behavior-of-prosumers</td>
-<td>10</td>
-<td>10</td>
-<td>tab</td>
-</tr>
-<tr>
-<td>mens-march-mania-2022</td>
-<td>10</td>
-<td>6</td>
-<td>tab</td>
-</tr>
-<tr>
-<td>petfinder-pawpularity-score</td>
-<td>10</td>
-<td>10</td>
-<td>img, tab</td>
-</tr>
-<tr>
-<td>cassava-leaf-disease-classification</td>
-<td>10</td>
-<td>10</td>
-<td>img</td>
-</tr>
-<tr>
-<td>llm-detect-ai-generated-text</td>
-<td>10</td>
-<td>10</td>
-<td>text</td>
-</tr>
-<tr>
-<td>home-credit-credit-risk-model-stability</td>
-<td>10</td>
-<td>2</td>
-<td>tab</td>
-</tr>
-<tr>
-<td>rsna-breast-cancer-detection</td>
-<td>10</td>
-<td>10</td>
-<td>img</td>
-</tr>
-<tr>
-<td>learning-agency-lab-automated-essay-scoring-2</td>
-<td>10</td>
-<td>8</td>
-<td>text</td>
-</tr>
-<tr>
-<td>hpa-single-cell-image-classification</td>
-<td>10</td>
-<td>10</td>
-<td>img</td>
+<td><code>CUDA_VISIBLE_DEVICES</code></td>
+<td>GPU device(s) to be used for execution</td>
 </tr>
 </tbody>
 </table>
@@ -295,8 +230,8 @@ These documents are pre-processed into notebook summaries and technical discussi
             </div>
           </div><footer>
     <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
-        <a href="../reactagent/" class="btn btn-neutral float-left" title="ReAct Agent"><span class="icon icon-circle-arrow-left"></span> Previous</a>
-        <a href="../Submission/" class="btn btn-neutral float-right" title="Submission">Next <span class="icon icon-circle-arrow-right"></span></a>
+        <a href="../Submission/" class="btn btn-neutral float-left" title="Submission"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../visualize/" class="btn btn-neutral float-right" title="Visualization">Next <span class="icon icon-circle-arrow-right"></span></a>
     </div>
 
   <hr/>
@@ -319,10 +254,10 @@ These documents are pre-processed into notebook summaries and technical discussi
   <span class="rst-current-version" data-toggle="rst-current-version">
     
     
-      <span><a href="../reactagent/" style="color: #fcfcfc">&laquo; Previous</a></span>
+      <span><a href="../Submission/" style="color: #fcfcfc">&laquo; Previous</a></span>
     
     
-      <span><a href="../Submission/" style="color: #fcfcfc">Next &raquo;</a></span>
+      <span><a href="../visualize/" style="color: #fcfcfc">Next &raquo;</a></span>
     
   </span>
 </div>

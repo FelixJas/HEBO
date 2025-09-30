@@ -76,6 +76,11 @@
                   <li class="toctree-l1"><a class="reference internal" href="../Submission/">Submission</a>
                   </li>
               </ul>
+              <p class="caption"><span class="caption-text">Running the Agent</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../pipeline/">Running the full pipeline</a>
+                  </li>
+              </ul>
               <p class="caption"><span class="caption-text">Extras</span></p>
               <ul>
                   <li class="toctree-l1"><a class="reference internal" href="../visualize/">Visualization</a>
@@ -124,7 +129,7 @@
 <hr />
 <h2 id="create-a-new-llm-config">🛠️ Create a New LLM Config<a class="headerlink" href="#create-a-new-llm-config" title="Permanent link">&para;</a></h2>
 <p>The simplest way to add a new model is via HuggingFace, either by loading it from the hub or from a local path. To do this, add a new config under:</p>
-<div class="highlight"><pre><span></span><code>../configs/llm/hf/
+<div class="highlight"><pre><span></span><code>./configs/llm/hf/
 </code></pre></div>
 <p>Update the config with the model ID and context length. You can also change <code>model_id</code> to a locally downloaded model path to avoid download times.</p>
 <p>Here’s an example configuration for <strong>OpenChat-3.5</strong>:</p>
@@ -137,7 +142,7 @@
 <span class="s2">tokenizer_kwargs: </span><span class="si">{}</span>
 <span class="s2">&quot;&quot;&quot;</span>
 
-<span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s2">&quot;../configs/llm/hf/example_openchat-3.5.yaml&quot;</span><span class="p">,</span> <span class="s2">&quot;w&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">file</span><span class="p">:</span>
+<span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s2">&quot;./configs/llm/hf/example_openchat-3.5.yaml&quot;</span><span class="p">,</span> <span class="s2">&quot;w&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">file</span><span class="p">:</span>
     <span class="n">file</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">llm_config</span><span class="p">)</span>
 </code></pre></div>
 <p>Now your Agent setup can support and run OpenChat-3.5 or any other HuggingFace-compatible LLM!</p>

@@ -45,10 +45,20 @@
                   <li class="toctree-l1 current"><a class="reference internal current" href="#">Installation</a>
     <ul class="current">
     <li class="toctree-l2"><a class="reference internal" href="#creating-the-environment">📦 Creating the Environment</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#packages-required-for-running-tabular-tasks">Packages required for running tabular tasks.</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#installing-geckodriver-needed-to-navigate-kaggle">Installing geckodriver - Needed to navigate Kaggle</a>
+    </li>
+        </ul>
     </li>
     <li class="toctree-l2"><a class="reference internal" href="#setting-up-kaggle">🏅 Setting Up Kaggle</a>
     </li>
+    <li class="toctree-l2"><a class="reference internal" href="#adding-login-details">🔐 Adding Login Details</a>
+    </li>
     <li class="toctree-l2"><a class="reference internal" href="#setting-up-raw-data-paths">📂 Setting Up Raw Data Paths</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#setting-up-agent-k-post-scaffold-phase">⚙️ Setting Up Agent K (post-scaffold phase)</a>
     </li>
     </ul>
                   </li>
@@ -78,6 +88,11 @@
               <p class="caption"><span class="caption-text">Submitting to Kaggle</span></p>
               <ul>
                   <li class="toctree-l1"><a class="reference internal" href="Submission/">Submission</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Running the Agent</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="pipeline/">Running the full pipeline</a>
                   </li>
               </ul>
               <p class="caption"><span class="caption-text">Extras</span></p>
@@ -129,7 +144,7 @@
 <ol>
 <li>
 <p>Create an environment named <code>agent</code>.</p>
-<div class="highlight"><pre><span></span><code>conda<span class="w"> </span>create<span class="w"> </span>-n<span class="w"> </span>agent<span class="w"> </span><span class="nv">python</span><span class="o">=</span><span class="m">3</span>.11
+<div class="highlight"><pre><span></span><code>conda<span class="w"> </span>create<span class="w"> </span>-n<span class="w"> </span>agent<span class="w"> </span><span class="nv">python</span><span class="o">=</span><span class="m">3</span>.11<span class="w"> </span>-y
 </code></pre></div>
 </li>
 <li>
@@ -145,12 +160,12 @@ pip<span class="w"> </span>install<span class="w"> </span>-e<span class="w"> </s
 </code></pre></div>
 </li>
 </ol>
-<p>Packages required for running tabular tasks.</p>
+<h4 id="packages-required-for-running-tabular-tasks">Packages required for running tabular tasks.<a class="headerlink" href="#packages-required-for-running-tabular-tasks" title="Permanent link">&para;</a></h4>
 <ol>
 <li>
 <p>Installing ramp-hyperopt
-   <div class="highlight"><pre><span></span><code><span class="w"> </span>unzip<span class="w"> </span>third_party/ramp-hyperopt.zip<span class="w"> </span>-d<span class="w"> </span>third_party/
-<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>-e<span class="w"> </span>./third_party/ramp-hyperopt/
+   <div class="highlight"><pre><span></span><code>unzip<span class="w"> </span>third_party/ramp-hyperopt.zip<span class="w"> </span>-d<span class="w"> </span>third_party/
+pip<span class="w"> </span>install<span class="w"> </span>-e<span class="w"> </span>./third_party/ramp-hyperopt/
 </code></pre></div></p>
 </li>
 <li>
@@ -160,31 +175,39 @@ pip<span class="w"> </span>install<span class="w"> </span>-e<span class="w"> </s
 </code></pre></div></p>
 </li>
 </ol>
-<p>Installing geckodriver</p>
+<h4 id="installing-geckodriver-needed-to-navigate-kaggle">Installing geckodriver - Needed to navigate Kaggle<a class="headerlink" href="#installing-geckodriver-needed-to-navigate-kaggle" title="Permanent link">&para;</a></h4>
 <ul>
 <li>Download a release of geckodriver using the following command.</li>
 </ul>
-<p><code>wget https://github.com/mozilla/geckodriver/releases/download/v0.32.0/geckodriver-v0.32.0-linux64.tar.gz</code></p>
+<div class="highlight"><pre><span></span><code>wget<span class="w"> </span>https://github.com/mozilla/geckodriver/releases/download/v0.33.0/geckodriver-v0.33.0-linux64.tar.gz
+</code></pre></div>
 <ul>
-<li>unzip the file using the following command.</li>
+<li>unzip the file using the following command and add path to .bashrc</li>
 </ul>
-<p><code>tar -xvzf geckodriver-v0.32.0-linux64.tar.gz</code></p>
+<div class="highlight"><pre><span></span><code>tar<span class="w"> </span>-xvzf<span class="w"> </span>geckodriver-v0.32.0-linux64.tar.gz
+<span class="nb">echo</span><span class="w"> </span><span class="s1">&#39;export PATH=$PATH:&#39;</span><span class="s2">&quot;</span><span class="k">$(</span><span class="nb">pwd</span><span class="k">)</span><span class="s2">&quot;</span><span class="w"> </span>&gt;&gt;<span class="w"> </span>~/.bashrc
+<span class="nb">source</span><span class="w"> </span>~/.bashrc
+</code></pre></div>
 <ul>
-<li>set the path in your .bashrc file</li>
+<li>Check installation </li>
 </ul>
-<p><code>export PATH=$PATH:/path/to/your/geckodriverdirectory/geckodriver*</code></p>
+<div class="highlight"><pre><span></span><code>which<span class="w"> </span>geckodriver<span class="w">  </span>
+<span class="c1"># Should output a path</span>
+</code></pre></div>
+<p>Install firefox version 113.0.2</p>
 <h3 id="setting-up-kaggle">🏅 Setting Up Kaggle<a class="headerlink" href="#setting-up-kaggle" title="Permanent link">&para;</a></h3>
 <ol>
-<li>install kaggle in your environment
-   <code>pip install kaggle</code>.</li>
 <li>Create an API Token on https://www.kaggle.com/<username>/account. This will trigger download for kaggle.json file.</li>
 <li>Place this file in the appropriate directory depending on your operating system. For linux the default path is
-   <code>~/.config/kaggle/kaggle.json</code>.</li>
+   <code>~/.kaggle/kaggle.json</code>.</li>
 <li>For more follow the steps in installation and API credentials section
    on https://github.com/Kaggle/kaggle-api/tree/main/docs.</li>
+<li>Test:
+   <div class="highlight"><pre><span></span><code>kaggle c list
+</code></pre></div></li>
 </ol>
-<p>#### 🔐 Adding Login Details
-   Inside <code>./third_party/data_preprocessing</code> create a json file named <code>kaggle_login_details.json</code> in the following
+<h3 id="adding-login-details">🔐 Adding Login Details<a class="headerlink" href="#adding-login-details" title="Permanent link">&para;</a></h3>
+<p>Inside <code>./third_party/data_preprocessing</code> create a json file named <code>kaggle_login_details.json</code> in the following
    format.</p>
 <div class="codehilite"><pre><span></span><code>```
 {
@@ -199,12 +222,22 @@ pip<span class="w"> </span>install<span class="w"> </span>-e<span class="w"> </s
 <p>This is the directory where when trying a new competition Agent K downloads the raw data for the competition.
 This data will be later used during the setup stage and in the main pipeline.</p>
 <ul>
-<li>create a file in <code>/path/to/your/agent_k_directory</code> named <code>root_path_to_raw_ds_data.txt</code> fill it with the path to the
-  directory where you want your raw data to be saved.</li>
+<li>In Agent K directory, create a file <code>root_path_to_raw_ds_data.txt</code> that contains the path to the
+  directory where raw competition data will be saved.</li>
 </ul>
 <div class="highlight"><pre><span></span><code><span class="nv">RAW_DATA_PATH</span><span class="o">=</span>...
 <span class="nb">echo</span><span class="w"> </span><span class="nv">$RAW_DATA_PATH</span><span class="w"> </span>&gt;<span class="w"> </span>./root_path_to_raw_ds_data.txt
 </code></pre></div>
+<h2 id="setting-up-agent-k-post-scaffold-phase">⚙️ Setting Up Agent K (post-scaffold phase)<a class="headerlink" href="#setting-up-agent-k-post-scaffold-phase" title="Permanent link">&para;</a></h2>
+<p>Agent K runs following a scaffold stage and a scaffold-free stage, where it uses a different environment (the same environment used to run the ReAct Agent baseline).</p>
+<p>Create a conda environment with python version 3.11.
+<div class="highlight"><pre><span></span><code>conda<span class="w"> </span>create<span class="w"> </span>-n<span class="w"> </span>reactagent<span class="w"> </span><span class="nv">python</span><span class="o">=</span><span class="m">3</span>.11<span class="w"> </span>-y
+conda<span class="w"> </span>activate<span class="w"> </span>reactagent
+</code></pre></div></p>
+<p>Install ReAct Agent
+<div class="highlight"><pre><span></span><code>unzip<span class="w"> </span>third_party/aideml.zip<span class="w"> </span>-d<span class="w"> </span>third_party/
+pip<span class="w"> </span>install<span class="w"> </span>-e<span class="w"> </span>./third_party/aideml
+</code></pre></div></p>
               
             </div>
           </div><footer>

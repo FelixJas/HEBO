@@ -69,6 +69,8 @@
     <li class="toctree-l2"><a class="reference internal" href="#location-of-the-agent-k-chain-of-thought">🧾 Location of the Agent K Chain of Thought</a>
     </li>
     <li class="toctree-l2"><a class="reference internal" href="#running-react-agent">🚀 Running ReAct Agent</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#running-react-agent-with-rag">🚀 Running ReAct Agent with RAG</a>
         <ul>
     <li class="toctree-l3"><a class="reference internal" href="#environment-variables">Environment Variables</a>
     </li>
@@ -82,6 +84,11 @@
               <p class="caption"><span class="caption-text">Submitting to Kaggle</span></p>
               <ul>
                   <li class="toctree-l1"><a class="reference internal" href="../Submission/">Submission</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Running the Agent</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../pipeline/">Running the full pipeline</a>
                   </li>
               </ul>
               <p class="caption"><span class="caption-text">Extras</span></p>
@@ -174,6 +181,38 @@ aide<span class="w"> </span><span class="se">\</span>
 <span class="w">      </span>agent.use_agent_k_warm_start<span class="o">=</span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">USE_AGENT_K_WARM_START</span><span class="si">}</span><span class="s2">&quot;</span><span class="w"> </span><span class="se">\</span>
 <span class="w">      </span>agent.agent_k_submissions<span class="o">=</span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">AGENT_K_SUBMISSIONS</span><span class="si">}</span><span class="s2">&quot;</span>
 </code></pre></div>
+<h2 id="running-react-agent-with-rag">🚀 Running ReAct Agent with RAG<a class="headerlink" href="#running-react-agent-with-rag" title="Permanent link">&para;</a></h2>
+<p>Create a RAG database from the already collected Kaggle cases
+<div class="highlight"><pre><span></span><code><span class="nv">RAG_DB_PATH</span><span class="o">=</span>./third_party/aideml/kaggle_cases_db/<span class="w">  </span><span class="c1"># Can be set to some other path</span>
+unzip<span class="w"> </span>third_party/aideml/kaggle_cases.zip<span class="w"> </span>-d<span class="w"> </span>third_party/aideml
+python<span class="w"> </span>third_party/aideml/aide/utils/db_faiss.py<span class="w">  </span>--populate<span class="w"> </span>--data_path<span class="w"> </span>third_party/aideml/kaggle_cases<span class="w"> </span>--rag_path<span class="w"> </span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">RAG_DB_PATH</span><span class="si">}</span><span class="s2">&quot;</span>
+</code></pre></div></p>
+<p>To run ReAct Agent use the following command.</p>
+<div class="highlight"><pre><span></span><code><span class="nv">TASK_ID</span><span class="o">=</span>...<span class="w"> </span>
+<span class="nv">TOP_N</span><span class="o">=</span>...<span class="w"> </span>
+<span class="nv">TIME_LIMIT_SECONDS</span><span class="o">=</span>...
+<span class="nv">TIME_OUT_SECONDS</span><span class="o">=</span>...<span class="w"> </span>
+<span class="nv">WORKSPACE_DIR</span><span class="o">=</span>...<span class="w"> </span>
+<span class="nv">MODEL_ID</span><span class="o">=</span>...<span class="w"> </span>
+<span class="nv">USE_AGENT_K_WARM_START</span><span class="o">=</span>...<span class="w"> </span>
+<span class="nv">AGENT_K_SUBMISSIONS</span><span class="o">=</span>...<span class="w"> </span>
+<span class="nv">DATA_DIR</span><span class="o">=</span>...<span class="w"> </span>
+<span class="nv">RAG_DB_PATH</span><span class="o">=</span>./third_party/aideml/kaggle_cases_db/<span class="w">  </span><span class="c1"># should match the path used to create the database</span>
+aide<span class="w"> </span><span class="se">\</span>
+<span class="w">      </span><span class="nv">data_dir</span><span class="o">=</span><span class="si">${</span><span class="nv">DATA_DIR</span><span class="si">}</span>/<span class="si">${</span><span class="nv">TASK_ID</span><span class="si">}</span><span class="w"> </span><span class="se">\</span>
+<span class="w">      </span><span class="nv">exp_name</span><span class="o">=</span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">TASK_ID</span><span class="si">}</span><span class="s2">&quot;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">      </span><span class="nv">top_n</span><span class="o">=</span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">TOP_N</span><span class="si">}</span><span class="s2">&quot;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">      </span>agent.time_limit<span class="o">=</span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">TIME_LIMIT_SECONDS</span><span class="si">}</span><span class="s2">&quot;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">      </span>exec.timeout<span class="o">=</span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">TIME_OUT_SECONDS</span><span class="si">}</span><span class="s2">&quot;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">      </span><span class="nv">copy_data</span><span class="o">=</span><span class="nb">false</span><span class="w"> </span><span class="se">\</span>
+<span class="w">      </span><span class="nv">workspace_dir</span><span class="o">=</span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">WORKSPACE_DIR</span><span class="si">}</span><span class="s2">&quot;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">      </span>agent.code.model<span class="o">=</span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">MODEL_ID</span><span class="si">}</span><span class="s2">&quot;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">      </span>agent.feedback.model<span class="o">=</span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">MODEL_ID</span><span class="si">}</span><span class="s2">&quot;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">      </span>agent.use_agent_k_warm_start<span class="o">=</span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">USE_AGENT_K_WARM_START</span><span class="si">}</span><span class="s2">&quot;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">      </span>agent.agent_k_submissions<span class="o">=</span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">AGENT_K_SUBMISSIONS</span><span class="si">}</span><span class="s2">&quot;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">      </span>agent.use_rag<span class="o">=</span>True<span class="w"> </span><span class="se">\</span>
+<span class="w">      </span>agent.rag_path<span class="o">=</span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">RAG_DB_PATH</span><span class="si">}</span><span class="s2">&quot;</span>
+</code></pre></div>
 <h3 id="environment-variables">Environment Variables<a class="headerlink" href="#environment-variables" title="Permanent link">&para;</a></h3>
 <table>
 <thead>
@@ -197,7 +236,7 @@ aide<span class="w"> </span><span class="se">\</span>
 </tr>
 <tr>
 <td><code>TIME_OUT_SECONDS</code></td>
-<td>Execution timeout for individual runs (not described above but appears in command).</td>
+<td>Execution timeout for individual runs.</td>
 </tr>
 <tr>
 <td><code>WORKSPACE_DIR</code></td>
@@ -218,6 +257,10 @@ aide<span class="w"> </span><span class="se">\</span>
 <tr>
 <td><code>DATA_DIR</code></td>
 <td>Directory where the data for the competition/task is stored.</td>
+</tr>
+<tr>
+<td><code>RAG_DB_PATH</code></td>
+<td>Directory where the RAG database of Kaggle examples are stored.</td>
 </tr>
 </tbody>
 </table>

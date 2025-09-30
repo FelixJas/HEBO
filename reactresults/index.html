@@ -72,6 +72,11 @@
                   <li class="toctree-l1"><a class="reference internal" href="../Submission/">Submission</a>
                   </li>
               </ul>
+              <p class="caption"><span class="caption-text">Running the Agent</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../pipeline/">Running the full pipeline</a>
+                  </li>
+              </ul>
               <p class="caption"><span class="caption-text">Extras</span></p>
               <ul>
                   <li class="toctree-l1"><a class="reference internal" href="../visualize/">Visualization</a>
@@ -146,6 +151,7 @@
 <span class="w">      </span>agent.use_rag<span class="o">=</span>False
 </code></pre></div>
 <h3 id="react-agent-rag">📚 ReAct Agent + RAG<a class="headerlink" href="#react-agent-rag" title="Permanent link">&para;</a></h3>
+<p>To set up a RAG database, refer to the <a href="../reactagent/">ReactAgent</a> section.
 <div class="highlight"><pre><span></span><code><span class="nv">TASK_ID</span><span class="o">=</span>...<span class="w"> </span>
 <span class="nv">TOP_N</span><span class="o">=</span>...<span class="w"> </span>
 <span class="nv">MIN_EXEC_TIME_SECONDS</span><span class="o">=</span>...<span class="w"> </span>
@@ -154,6 +160,7 @@
 <span class="nv">WORKSPACE_DIR</span><span class="o">=</span>...<span class="w"> </span>
 <span class="nv">MODEL_ID</span><span class="o">=</span>Qwen/Qwen2.5-72B-Instruct<span class="w">  </span>
 <span class="nv">DATA_DIR</span><span class="o">=</span>...<span class="w"> </span>
+<span class="nv">RAG_DB_PATH</span><span class="o">=</span>...
 <span class="nv">TOKENIZERS_PARALLELISM</span><span class="o">=</span>False<span class="w"> </span>aide<span class="w"> </span><span class="se">\</span>
 <span class="w">      </span><span class="nv">data_dir</span><span class="o">=</span><span class="si">${</span><span class="nv">DATA_DIR</span><span class="si">}</span>/<span class="si">${</span><span class="nv">TASK_ID</span><span class="si">}</span><span class="w"> </span><span class="se">\</span>
 <span class="w">      </span><span class="nv">exp_name</span><span class="o">=</span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">TASK_ID</span><span class="si">}</span><span class="s2">&quot;</span><span class="w"> </span><span class="se">\</span>
@@ -165,8 +172,9 @@
 <span class="w">      </span><span class="nv">workspace_dir</span><span class="o">=</span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">WORKSPACE_DIR</span><span class="si">}</span><span class="s2">&quot;</span><span class="w"> </span><span class="se">\</span>
 <span class="w">      </span>agent.code.model<span class="o">=</span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">MODEL_ID</span><span class="si">}</span><span class="s2">&quot;</span><span class="w"> </span><span class="se">\</span>
 <span class="w">      </span>agent.feedback.model<span class="o">=</span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">MODEL_ID</span><span class="si">}</span><span class="s2">&quot;</span><span class="w"> </span><span class="se">\</span>
-<span class="w">      </span>agent.use_rag<span class="o">=</span>True
-</code></pre></div>
+<span class="w">      </span>agent.use_rag<span class="o">=</span>True<span class="w"> </span><span class="se">\</span>
+<span class="w">      </span>agent.rag_path<span class="o">=</span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">RAG_DB_PATH</span><span class="si">}</span><span class="s2">&quot;</span>
+</code></pre></div></p>
 <h3 id="react-agent-from-cot">💡 ReAct Agent from COT<a class="headerlink" href="#react-agent-from-cot" title="Permanent link">&para;</a></h3>
 <div class="highlight"><pre><span></span><code><span class="nv">TASK_ID</span><span class="o">=</span>...<span class="w"> </span>
 <span class="nv">TOP_N</span><span class="o">=</span>...<span class="w"> </span>
