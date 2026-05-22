@@ -18,3 +18,8 @@
 /paper_results/data_mcbo_mix/
 **/*__perso__*
 *__perso__*
+/libs/Absolut
+/libs/EDA
+/mcbo/tasks/data
+/MCBO.egg-info
+/slurm_logs

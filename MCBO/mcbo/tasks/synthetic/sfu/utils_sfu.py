@@ -218,11 +218,13 @@ def default_sfu_params_factory(task_name: str, num_dims: int, task_name_suffix: 
                   'ub': num_dims,
                   'beta': 10
                   }
+
     elif task_name == 'powell':
         params = {'num_dims': num_dims,
                   'lb': -4,
                   'ub': 5,
                   }
+
     elif task_name == 'styblinski_tang':
         params = {'num_dims': num_dims,
                   'lb': -5,
@@ -231,6 +233,8 @@ def default_sfu_params_factory(task_name: str, num_dims: int, task_name_suffix: 
 
     else:
         raise NotImplemented(f'Task {task_name} is not implemented')
+
     if task_name_suffix is not None:
         params["task_name_suffix"] = task_name_suffix
+
     return params
