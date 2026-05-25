@@ -281,11 +281,9 @@ def get_opt_results(task_id: str, opt_short_name: str, seeds: List[int], result_
                'Elapsed Time']
     results = pd.DataFrame(columns=columns)
 
-    optname = opt.name
-
     if result_dir is None:
         result_dir = RESULTS_DIR
-    sub_folder_dir = os.path.join(result_dir, task.name, optname)
+    sub_folder_dir = os.path.join(result_dir, task.name, opt.name)
 
     for seed in seeds:
         res_path = os.path.join(sub_folder_dir, f'seed_{seed}_results.csv')

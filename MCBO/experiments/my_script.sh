@@ -10,8 +10,10 @@ RESULT_DIR="${PROJECT_ROOT}/results"
 
 # Experiment variables
 SEEDS="42 43 44"
+# TASKS=("ackley-53" "svm_opt" "xgboost_opt" "aig_optimization_hyp")
+TASKS=("svm_opt" "xgboost_opt")
 
-for task in ackley-53; do
+for task in "${TASKS[@]}"; do
     # BO methods
     for model in gp_to ; do
         for acq_opt in is ; do
