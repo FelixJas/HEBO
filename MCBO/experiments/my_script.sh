@@ -11,7 +11,7 @@ RESULT_DIR="${PROJECT_ROOT}/results"
 # Experiment variables
 SEEDS="42 43 44"
 # TASKS=("ackley-53" "svm_opt" "xgboost_opt" "aig_optimization_hyp")
-TASKS=("Func2C")
+TASKS=("Func3C")
 
 for task in "${TASKS[@]}"; do
     # BO methods

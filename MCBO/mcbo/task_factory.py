@@ -39,6 +39,10 @@ def task_factory(task_name: str, **kwargs) -> TaskBase:
         from mcbo.tasks.custom.func2c import Func2C
         task = Func2C()
 
+    elif task_name == 'Func3C':
+        from mcbo.tasks.custom.func2c import Func3C
+        task = Func3C()
+
     elif task_name == 'pest':
         task = PestControl()
 

@@ -190,6 +190,9 @@ def get_task_from_id(task_id: str, **task_kwargs) -> TaskBase:
     elif task_id == 'Func2C':
         task_name = 'Func2C'
 
+    elif task_id == 'Func3C':
+        task_name = 'Func3C'
+
     elif task_id == "ackley-53":
         task_name = "ackley"
         num_dims = [50, 3]
