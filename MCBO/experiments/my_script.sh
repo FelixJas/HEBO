@@ -11,7 +11,7 @@ RESULT_DIR="${PROJECT_ROOT}/results"
 # Experiment variables
 SEEDS="42 43 44"
 # TASKS=("ackley-53" "svm_opt" "xgboost_opt" "aig_optimization_hyp")
-TASKS=("svm_opt" "xgboost_opt")
+TASKS=("Func2C")
 
 for task in "${TASKS[@]}"; do
     # BO methods
@@ -40,11 +40,13 @@ conda activate $CONDA_ENV
 cd $PROJECT_ROOT
 
 # The native script handles the looping over seeds internally!
-python experiments/run_task_exps.py \\
+# The -u unbuffered flag lets you see print statements in the live slurm logs.
+python -u experiments/run_task_exps.py \\
     --task_id $task \\
     --optimizers_ids $opt_id \\
     --seeds $SEEDS \\
-    --result_dir ${RESULT_DIR}
+    --result_dir ${RESULT_DIR} \\
+    --verbose 2
 EOF
 
             done

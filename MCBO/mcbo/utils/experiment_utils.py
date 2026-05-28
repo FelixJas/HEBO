@@ -92,6 +92,8 @@ def run_experiment(
             save_y_path = os.path.join(optim_save_dir, f'seed_{seed}_results.csv')
             save_x_path = os.path.join(optim_save_dir, f'seed_{seed}_x.pkl')
             save_time_path = os.path.join(optim_save_dir, f'seed_{seed}_time.pkl')
+
+            # Resume mechanism if experiment was run before.
             if os.path.exists(save_y_path) and os.path.exists(save_x_path):
                 x = load_w_pickle(save_x_path)
                 x = pd.DataFrame.from_dict(x)
@@ -100,6 +102,7 @@ def run_experiment(
                 y = results["f(x)"].values.reshape((-1, 1))
                 elapsed_time = results["Elapsed Time"].values.flatten()
 
+                # Rebuild GP with recorded results
                 for iter_num in range(len(x)):
                     x_next = x[iter_num:iter_num + batch_suggest]
                     y_next = y[iter_num:iter_num + batch_suggest]
@@ -120,11 +123,13 @@ def run_experiment(
                     time_dict = load_w_pickle(save_time_path)
                     optimizer.set_time_from_dict(time_dict)
 
+                # Increase start point of the actual BO loop
                 start_iter = len(x) // batch_suggest + 1
                 print(
                     f'{current_time_formatter()} - Loaded {len(x)} existing points... y* {optimizer.best_y[0]:.3f}')
 
             # Main loop
+            # Notice that this loop is agnostic about n_init samples. Those are handled in bo_base.py .
             for iter_num in range(start_iter, max_num_iter + 1):
                 if hasattr(optimizer, "device") and optimizer.device is not None and optimizer.device.type == "cuda":
                     with torch.cuda.device(optimizer.device):
@@ -181,6 +186,10 @@ def get_task_from_id(task_id: str, **task_kwargs) -> TaskBase:
     task_name = None
     if task_id == "rna_inverse_fold":
         task_kwargs = {'target': 65}
+
+    elif task_id == 'Func2C':
+        task_name = 'Func2C'
+
     elif task_id == "ackley-53":
         task_name = "ackley"
         num_dims = [50, 3]

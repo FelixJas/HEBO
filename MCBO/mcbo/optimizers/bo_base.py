@@ -133,6 +133,7 @@ class BoBase(OptimizerBase):
         self.init_sampling_strategy = init_sampling_strategy
         self.n_init = n_init
 
+        # Generating initial samples
         point_sampler = self.get_point_sampler()
         self.x_init = self.sample_input_valid_points(
             n_points=self.n_init,
@@ -230,6 +231,7 @@ class BoBase(OptimizerBase):
         # Return as many points from initialisation as possible
         if len(self.x_init) > 0 and n_remaining > 0:
             n = min(n_suggestions, len(self.x_init))
+            # Removes init sample from initialization DataFrame and moves it to results DataFrame. -> Initial samples are in results.csv
             x_next.iloc[idx: idx + n] = self.x_init.iloc[[i for i in range(0, n)]]
             self.x_init = self.x_init.drop(self.x_init.index[[i for i in range(0, n)]], inplace=False).reset_index(
                 drop=True)
